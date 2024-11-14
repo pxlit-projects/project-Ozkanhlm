@@ -1,7 +1,6 @@
 # Fullstack Java Project
 
-## Firstname Lastname (Class)
-Change the name and Class in the title above
+## Yozkan Halim 3AONC
 
 ## Folder structure
 
@@ -17,4 +16,4 @@ Each folder contains its own specific `.gitignore` file.
 
 ## How to setup and run this application
 
-:heavy_check_mark:_(COMMENT) Add setup instructions and provide some direction to run the whole  application: frontend to backend._
+:heavy*check_mark:*(COMMENT) Add setup instructions and provide some direction to run the whole application: frontend to backend.\_
