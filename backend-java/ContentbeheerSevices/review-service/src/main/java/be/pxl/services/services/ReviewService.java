@@ -13,25 +13,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewService implements IReviewService {
 
-    private final ReviewRepository postRepository;
+    private final ReviewRepository reviewRepository;
 
     @Override
     public List<ReviewResponse> getAllReviews() {
-         List<Review> posts = postRepository.findAll();
-         return posts.stream().map(post -> mapToPostResponse(post)).toList();
+         List<Review> reviews = reviewRepository.findAll();
+         return reviews.stream().map(review -> mapToReviewResponse(review)).toList();
     }
 
-    private ReviewResponse mapToPostResponse(Review post) {
+    private ReviewResponse mapToReviewResponse(Review review) {
         return ReviewResponse.builder()
-                .titel(post.getTitel())
+                .titel(review.getTitel())
                 .build();
     }
 
     @Override
-    public void addReview(ReviewRequest postRequest) {
-        Review post = Review.builder()
-                .titel(postRequest.getTitel())
+    public void addReview(ReviewRequest reviewRequest) {
+        Review review = Review.builder()
+                .titel(reviewRequest.getTitel())
                 .build();
-        postRepository.save(post);
+        reviewRepository.save(review);
     }
 }
