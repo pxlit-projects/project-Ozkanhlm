@@ -20,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostResponse {
-    private String titel;
+    private String title;
     private String picture;
     private String content;
     private String author;

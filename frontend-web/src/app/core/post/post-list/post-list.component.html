@@ -2,7 +2,7 @@
   <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Posts</h1>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    @for(post of posts; track post.titel){
+    @for(post of posts; track post.title){
     <div
       class="bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105"
     >
@@ -13,7 +13,7 @@
       />
       <div class="p-4">
         <h2 class="text-xl font-semibold text-gray-800 mb-2">
-          {{ post.titel }}
+          {{ post.title }}
         </h2>
         <p class="text-gray-600 mb-4">{{ post.content }}</p>
         <div class="text-sm text-gray-500 space-y-1">
@@ -25,14 +25,6 @@
           </p>
           <p>
             <strong class="font-semibold">Status:</strong> {{ post.status }}
-          </p>
-          <p>
-            <strong class="font-semibold">Created at:</strong>
-            {{ post.created_at }}
-          </p>
-          <p>
-            <strong class="font-semibold">Updated at:</strong>
-            {{ post.updated_at }}
           </p>
         </div>
       </div>

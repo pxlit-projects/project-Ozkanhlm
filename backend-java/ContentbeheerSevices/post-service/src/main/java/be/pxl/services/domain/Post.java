@@ -21,7 +21,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String titel;
+    private String title;
 
     private String picture;
 

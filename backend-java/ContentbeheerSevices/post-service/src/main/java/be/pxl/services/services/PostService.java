@@ -23,7 +23,7 @@ public class PostService implements IPostService {
 
     private PostResponse mapToPostResponse(Post post) {
         return PostResponse.builder()
-                .titel(post.getTitel())
+                .title(post.getTitle())
                 .picture(post.getPicture())
                 .content(post.getContent())
                 .author(post.getAuthor())
@@ -37,7 +37,7 @@ public class PostService implements IPostService {
     @Override
     public void addPost(PostRequest postRequest) {
         Post post = Post.builder()
-                .titel(postRequest.getTitel())
+                .title(postRequest.getTitle())
                 .picture(postRequest.getPicture())
                 .content(postRequest.getContent())
                 .author(postRequest.getAuthor())
