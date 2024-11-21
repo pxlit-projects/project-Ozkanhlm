@@ -24,6 +24,13 @@ public class PostService implements IPostService {
     private PostResponse mapToPostResponse(Post post) {
         return PostResponse.builder()
                 .titel(post.getTitel())
+                .picture(post.getPicture())
+                .content(post.getContent())
+                .author(post.getAuthor())
+                .status(post.getStatus())
+                .created_at(post.getCreated_at())
+                .updated_at(post.getUpdated_at())
+                .category(post.getCategory())
                 .build();
     }
 

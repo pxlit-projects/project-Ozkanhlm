@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
+    // Check op NOT NULL....
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,12 +22,13 @@ public class Post {
 
     private String titel;
 
+    private String picture;
+
     private String content;
 
     private String author;
 
     @Enumerated(EnumType.STRING)
-
     private Status status;
 
     private LocalDateTime created_at;
@@ -34,6 +36,5 @@ public class Post {
     private LocalDateTime updated_at;
 
     @Enumerated(EnumType.STRING)
-
     private Category category;
 }
