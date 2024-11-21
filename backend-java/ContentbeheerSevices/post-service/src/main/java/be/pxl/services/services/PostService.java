@@ -38,6 +38,13 @@ public class PostService implements IPostService {
     public void addPost(PostRequest postRequest) {
         Post post = Post.builder()
                 .titel(postRequest.getTitel())
+                .picture(postRequest.getPicture())
+                .content(postRequest.getContent())
+                .author(postRequest.getAuthor())
+                .status(postRequest.getStatus())
+                .category(postRequest.getCategory())
+                .comments(postRequest.getComments())
+                .review(postRequest.getReview())
                 .build();
         postRepository.save(post);
     }
