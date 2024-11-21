@@ -52,7 +52,7 @@ export class AddPostComponent {
 
     this.postService.addPost(newPost).subscribe(() => {
       this.postForm.reset();
-      this.router.navigate(['/']);
+      this.router.navigate(['/posts']);
     });
   }
 }
