@@ -23,14 +23,14 @@ public class CommentService implements ICommentService {
 
     private CommentResponse mapToCommentResponse(Comment comment) {
         return CommentResponse.builder()
-                .titel(comment.getTitel())
+                .titel(comment.getNote())
                 .build();
     }
 
     @Override
     public void addComment(CommentRequest commentRequest) {
         Comment comment = Comment.builder()
-                .titel(commentRequest.getTitel())
+                .note(commentRequest.getTitel())
                 .build();
         commentRepository.save(comment);
     }

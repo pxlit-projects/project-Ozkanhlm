@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
+
+import java.util.List;
 
 @Entity
 @Table(name = "post")
@@ -29,12 +30,15 @@ public class Post {
     private String author;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
-
-    private LocalDateTime created_at;
-
-    private LocalDateTime updated_at;
+    private Category category;
 
     @Enumerated(EnumType.STRING)
-    private Category category;
+    private Status status;
+
+    @Transient
+    private List<Comment> comments;
+
+    @Transient
+    private Review review;
+
 }

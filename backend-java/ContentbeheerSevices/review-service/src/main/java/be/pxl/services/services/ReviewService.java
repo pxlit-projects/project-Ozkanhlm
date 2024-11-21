@@ -23,14 +23,14 @@ public class ReviewService implements IReviewService {
 
     private ReviewResponse mapToReviewResponse(Review review) {
         return ReviewResponse.builder()
-                .titel(review.getTitel())
+                .titel(review.getComment())
                 .build();
     }
 
     @Override
     public void addReview(ReviewRequest reviewRequest) {
         Review review = Review.builder()
-                .titel(reviewRequest.getTitel())
+                .comment(reviewRequest.getTitel())
                 .build();
         reviewRepository.save(review);
     }

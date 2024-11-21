@@ -28,9 +28,9 @@ public class PostService implements IPostService {
                 .content(post.getContent())
                 .author(post.getAuthor())
                 .status(post.getStatus())
-                .created_at(post.getCreated_at())
-                .updated_at(post.getUpdated_at())
                 .category(post.getCategory())
+                .comments(post.getComments())
+                .review(post.getReview())
                 .build();
     }
 
