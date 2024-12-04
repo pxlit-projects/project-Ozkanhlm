@@ -1,5 +1,7 @@
 package be.pxl.services.services;
 
+import be.pxl.services.client.NotificationClient;
+import be.pxl.services.domain.NotificationRequest;
 import be.pxl.services.domain.Review;
 import be.pxl.services.domain.dto.ReviewRequest;
 import be.pxl.services.domain.dto.ReviewResponse;
@@ -14,7 +16,7 @@ import java.util.List;
 public class ReviewService implements IReviewService {
 
     private final ReviewRepository reviewRepository;
-
+    private final NotificationClient notificationClient;
     @Override
     public List<ReviewResponse> getAllReviews() {
          List<Review> reviews = reviewRepository.findAll();
@@ -33,5 +35,14 @@ public class ReviewService implements IReviewService {
                 .comment(reviewRequest.getTitel())
                 .build();
         reviewRepository.save(review);
+
+        NotificationRequest notificationRequest =
+                NotificationRequest.builder()
+                        .message("Review Created")
+                        .sender("Ozkan")
+                        .build();
+        notificationClient.sendNotification(notificationRequest);
+
+
     }
 }

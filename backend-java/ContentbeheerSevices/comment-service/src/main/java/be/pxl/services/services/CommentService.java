@@ -1,6 +1,8 @@
 package be.pxl.services.services;
 
+import be.pxl.services.client.NotificationClient;
 import be.pxl.services.domain.Comment;
+import be.pxl.services.domain.NotificationRequest;
 import be.pxl.services.domain.dto.CommentRequest;
 import be.pxl.services.domain.dto.CommentResponse;
 import be.pxl.services.repository.CommentRepository;
@@ -14,6 +16,7 @@ import java.util.List;
 public class CommentService implements ICommentService {
 
     private final CommentRepository commentRepository;
+    private final NotificationClient notificationClient;
 
     @Override
     public List<CommentResponse> getAllComments() {
@@ -33,5 +36,12 @@ public class CommentService implements ICommentService {
                 .note(commentRequest.getTitel())
                 .build();
         commentRepository.save(comment);
+
+        NotificationRequest notificationRequest =
+                NotificationRequest.builder()
+                        .message("Comment Created")
+                        .sender("Ozkan")
+                        .build();
+        notificationClient.sendNotification(notificationRequest);
     }
 }
