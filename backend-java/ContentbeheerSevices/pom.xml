@@ -27,7 +27,8 @@
         <module>comment-service</module>
         <module>discovery-service</module>
 		<module>notification-service</module>
-	</modules>
+        <module>config-service</module>
+    </modules>
 	<scm>
 		<connection/>
 		<developerConnection/>
