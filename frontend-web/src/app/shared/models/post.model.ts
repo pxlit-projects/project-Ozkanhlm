@@ -9,13 +9,13 @@ export interface Post {
   review?: any;
 }
 
-export interface PostRequest {
-  title: string;
-  picture: string;
-  content: string;
-  author: string;
-  category: string;
-  status: string;
-  comments?: any[];
-  review?: any;
-}
+// export interface PostRequest {
+//   title: string;
+//   picture: string;
+//   content: string;
+//   author: string;
+//   category: string;
+//   status: string;
+//   comments?: any[];
+//   review?: any;
+// }

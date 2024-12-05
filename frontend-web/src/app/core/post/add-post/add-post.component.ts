@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { PostService } from '../../../shared/services/post.service';
-import { PostRequest } from '../../../shared/models/post.model';
+import { Post } from '../../../shared/models/post.model';
 
 @Component({
   selector: 'app-add-post',
@@ -44,7 +44,7 @@ export class AddPostComponent {
   });
 
   onSubmit() {
-    const newPost: PostRequest = {
+    const newPost: Post = {
       ...this.postForm.value,
     };
 
