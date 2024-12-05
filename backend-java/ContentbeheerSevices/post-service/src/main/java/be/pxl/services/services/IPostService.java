@@ -5,9 +5,11 @@ import java.util.List;
 
 public interface IPostService {
     List<PostResponse> getAllPosts();
-
     void addPost(PostRequest postRequest);
     PostResponse findPostById(Long postId);
-
     PostResponse  updatePost(Long postId, PostRequest postRequest);
+    void deletePost(Long postId);
+    List<String> getCategories();
+    List<String> getStatuses();
+
 }

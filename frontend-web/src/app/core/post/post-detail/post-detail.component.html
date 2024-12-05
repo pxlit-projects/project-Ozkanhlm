@@ -31,9 +31,6 @@
         @for(category of categories; track category){
         <option [value]="category">{{ category }}</option>
         }
-        <!-- <option *ngFor="let category of categories" [value]="category">
-          {{ category }}
-        </option> -->
       </select>
     </div>
     <div>
@@ -42,9 +39,6 @@
         @for(status of statuses; track status ){
         <option [value]="status">{{ status }}</option>
         }
-        <!-- <option *ngFor="let status of statuses" [value]="status">
-          {{ status }}
-        </option> -->
       </select>
     </div>
     <button
@@ -55,5 +49,12 @@
       Update Post
     </button>
   </form>
+
+  <button
+    (click)="deletePost()"
+    class="bg-red-500 hover:bg-red-700 text-white float-left font-bold mt-4 mb-4 py-2 px-2 rounded"
+  >
+    Delete Post
+  </button>
 </div>
 }

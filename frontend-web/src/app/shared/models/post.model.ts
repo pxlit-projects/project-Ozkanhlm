@@ -4,20 +4,9 @@ export interface Post {
   picture: string;
   content: string;
   author: string;
-  status: string;
+  status: 'PUBLISH' | 'CONCEPT' | 'PENDING';
   category: string;
   comments?: any[];
   review?: any;
   createdDate: string;
 }
-
-// export interface PostRequest {
-//   title: string;
-//   picture: string;
-//   content: string;
-//   author: string;
-//   category: string;
-//   status: string;
-//   comments?: any[];
-//   review?: any;
-// }

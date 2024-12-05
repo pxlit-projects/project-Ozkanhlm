@@ -1,8 +1,10 @@
 package be.pxl.services.services;
 
 import be.pxl.services.client.NotificationClient;
+import be.pxl.services.domain.Category;
 import be.pxl.services.domain.NotificationRequest;
 import be.pxl.services.domain.Post;
+import be.pxl.services.domain.Status;
 import be.pxl.services.domain.dto.PostRequest;
 import be.pxl.services.domain.dto.PostResponse;
 import be.pxl.services.repository.PostRepository;
@@ -10,7 +12,9 @@ import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -100,4 +104,24 @@ public class PostService implements IPostService {
         return mapToPostResponse(post);
     }
 
+    @Override
+    public void deletePost(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new NotFoundException("No post with id [" + postId + "]"));
+        postRepository.delete(post);
+    }
+
+    @Override
+    public List<String> getCategories() {
+        return Arrays.stream(Category.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getStatuses() {
+        return Arrays.stream(Status.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+    }
 }

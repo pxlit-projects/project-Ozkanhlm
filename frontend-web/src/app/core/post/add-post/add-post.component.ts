@@ -28,15 +28,11 @@ export class AddPostComponent {
   router: Router = inject(Router);
 
   ngOnInit(): void {
-    if (this.role === 'redacteur') {
-      console.log('Redacteur');
-    } else {
-      console.log('Gebruiker');
-    }
-
     this.postService.getCategories().subscribe({
       next: (data) => {
         this.categories = data;
+
+        console.log(this.categories);
       },
       error: (error) => {
         console.error('Error fetching categories:', error);

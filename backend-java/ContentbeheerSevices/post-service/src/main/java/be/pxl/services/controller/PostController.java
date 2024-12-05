@@ -39,6 +39,7 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
+    @ResponseStatus(HttpStatus.OK)
     public PostResponse findPostById(@PathVariable Long postId) {
         return postService.findPostById(postId);
     }
@@ -50,17 +51,20 @@ public class PostController {
         return ResponseEntity.ok(updatedPost);
     }
 
+    @DeleteMapping("/{postId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePost(@PathVariable Long postId) {
+        postService.deletePost(postId);
+    }
     @GetMapping("/categories")
+    @ResponseStatus(HttpStatus.OK)
     public List<String> getCategories() {
-        return Arrays.stream(Category.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
+        return postService.getCategories();
     }
 
     @GetMapping("/statuses")
+    @ResponseStatus(HttpStatus.OK)
     public List<String> getStatuses() {
-        return Arrays.stream(Status.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
+        return postService.getStatuses();
     }
 }

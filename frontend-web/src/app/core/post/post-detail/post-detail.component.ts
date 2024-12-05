@@ -93,4 +93,17 @@ export class PostDetailComponent {
       console.log('Form is not valid');
     }
   }
+
+  deletePost(): void {
+    if (confirm('Are you sure you want to delete this post?')) {
+      this.postService.deletePost(this.id).subscribe({
+        next: () => {
+          this.router.navigate(['/posts']);
+        },
+        error: (error) => {
+          console.error('Error deleting post:', error);
+        },
+      });
+    }
+  }
 }

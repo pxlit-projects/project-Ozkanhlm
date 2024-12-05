@@ -27,6 +27,10 @@ export class PostService {
     return this.http.get<Post>(`${this.api}/${id}`);
   }
 
+  deletePost(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.api}/${id}`);
+  }
+
   getCategories(): Observable<string[]> {
     return this.http.get<string[]>(this.api + '/categories');
   }

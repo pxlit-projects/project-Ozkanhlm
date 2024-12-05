@@ -13,6 +13,7 @@ import { RouterLink } from '@angular/router';
 })
 export class PostListComponent implements OnInit {
   posts: Post[] = [];
+  postForRole: Post[] = [];
   postService: PostService = inject(PostService);
 
   ngOnInit(): void {
@@ -23,10 +24,23 @@ export class PostListComponent implements OnInit {
     this.postService.getPosts().subscribe({
       next: (data: Post[]) => {
         this.posts = data;
+
+        this.loadPosts();
       },
       error: (error) => {
         console.error('Error fetching posts:', error);
       },
     });
+  }
+
+  loadPosts(): void {
+    const role = localStorage.getItem('role');
+    if (role === 'redacteur') {
+      this.postForRole = this.posts.reverse();
+    } else if (role === 'gebruiker') {
+      this.postForRole = this.posts
+        .filter((post) => post.status === 'PUBLISH')
+        .reverse();
+    }
   }
 }
