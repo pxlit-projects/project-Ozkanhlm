@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RoleService } from '../../shared/services/role.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   router: Router = inject(Router);
-
+  roleService: RoleService = inject(RoleService);
   fb: FormBuilder = inject(FormBuilder);
 
   loginForm: FormGroup = this.fb.group({
@@ -32,7 +33,7 @@ export class LoginComponent {
     );
 
     if (user) {
-      localStorage.setItem('role', user.role);
+      this.roleService.setRole(user.role);
       this.router.navigate(['/posts']);
     } else {
       console.error('Invalid username or password');

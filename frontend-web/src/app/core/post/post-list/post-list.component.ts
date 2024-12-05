@@ -3,6 +3,7 @@ import { Post } from '../../../shared/models/post.model';
 import { PostService } from '../../../shared/services/post.service';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { RoleService } from '../../../shared/services/role.service';
 
 @Component({
   selector: 'app-post-list',
@@ -15,6 +16,8 @@ export class PostListComponent implements OnInit {
   posts: Post[] = [];
   postForRole: Post[] = [];
   postService: PostService = inject(PostService);
+  roleService: RoleService = inject(RoleService);
+  role = this.roleService.getRole();
 
   ngOnInit(): void {
     this.fetchData();
@@ -34,10 +37,9 @@ export class PostListComponent implements OnInit {
   }
 
   loadPosts(): void {
-    const role = localStorage.getItem('role');
-    if (role === 'redacteur') {
+    if (this.role === 'redacteur') {
       this.postForRole = this.posts.reverse();
-    } else if (role === 'gebruiker') {
+    } else if (this.role === 'gebruiker') {
       this.postForRole = this.posts
         .filter((post) => post.status === 'PUBLISH')
         .reverse();

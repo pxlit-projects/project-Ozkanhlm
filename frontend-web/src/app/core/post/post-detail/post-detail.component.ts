@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../../../shared/services/post.service';
@@ -10,14 +10,18 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { RoleService } from '../../../shared/services/role.service';
 @Component({
   selector: 'app-post-detail',
   standalone: true,
-  imports: [AsyncPipe, ReactiveFormsModule],
+  imports: [AsyncPipe, ReactiveFormsModule, DatePipe],
   templateUrl: './post-detail.component.html',
   styleUrl: './post-detail.component.css',
 })
 export class PostDetailComponent {
+  roleService: RoleService = inject(RoleService);
+  role = this.roleService.getRole();
+
   categories: string[] = [];
   statuses: string[] = [];
 
@@ -27,6 +31,7 @@ export class PostDetailComponent {
 
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
+
   id: number = this.route.snapshot.params['id'];
 
   post$: Observable<Post> = this.postService.getPost(this.id);

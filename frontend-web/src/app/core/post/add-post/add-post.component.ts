@@ -8,6 +8,7 @@ import {
 import { PostService } from '../../../shared/services/post.service';
 import { Post } from '../../../shared/models/post.model';
 import { Router } from '@angular/router';
+import { RoleService } from '../../../shared/services/role.service';
 
 @Component({
   selector: 'app-add-post',
@@ -17,7 +18,8 @@ import { Router } from '@angular/router';
   styleUrl: './add-post.component.css',
 })
 export class AddPostComponent {
-  role = localStorage.getItem('role');
+  roleService: RoleService = inject(RoleService);
+  role = this.roleService.getRole();
 
   categories: string[] = [];
   statuses: string[] = [];

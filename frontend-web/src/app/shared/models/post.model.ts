@@ -4,7 +4,7 @@ export interface Post {
   picture: string;
   content: string;
   author: string;
-  status: 'PUBLISH' | 'CONCEPT' | 'PENDING';
+  status: string;
   category: string;
   comments?: any[];
   review?: any;

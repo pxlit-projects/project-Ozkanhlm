@@ -25,9 +25,11 @@
           <p>
             <strong class="font-semibold">Category:</strong> {{ post.category }}
           </p>
+          @if (role === 'redacteur') {
           <p>
             <strong class="font-semibold">Status:</strong> {{ post.status }}
           </p>
+          }
           <p>
             <strong class="font-semibold">Date:</strong>
             {{ post.createdDate | date : "yyyy-MM-dd" }}

@@ -15,6 +15,7 @@
               >Posts</a
             >
           </li>
+          @if (role === 'redacteur') {
           <li>
             <a
               [routerLink]="['/add']"
@@ -23,16 +24,20 @@
               >Add Post</a
             >
           </li>
+          }
         </div>
 
-        <li>
-          <button
-            (click)="logout()"
-            class="text-white hover:bg-red-400 p-2 rounded-lg duration-300 bg-red-600"
-          >
-            Logout
-          </button>
-        </li>
+        <div class="flex gap-10">
+          <li class="text-xl pt-3">"{{ role }}"</li>
+          <li>
+            <button
+              (click)="logout()"
+              class="text-white hover:bg-red-400 p-2 rounded-lg duration-300 bg-red-600"
+            >
+              Logout
+            </button>
+          </li>
+        </div>
       </ul>
     </div>
   </div>
