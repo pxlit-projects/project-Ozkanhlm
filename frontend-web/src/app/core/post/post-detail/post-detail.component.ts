@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../../../shared/services/post.service';
@@ -13,7 +13,7 @@ import {
 @Component({
   selector: 'app-post-detail',
   standalone: true,
-  imports: [NgIf, NgClass, AsyncPipe, ReactiveFormsModule],
+  imports: [AsyncPipe, ReactiveFormsModule],
   templateUrl: './post-detail.component.html',
   styleUrl: './post-detail.component.css',
 })

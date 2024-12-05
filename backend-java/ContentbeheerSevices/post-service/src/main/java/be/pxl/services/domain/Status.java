@@ -1,7 +1,7 @@
 package be.pxl.services.domain;
 
 public enum Status {
-    APPROVED,
+    PUBLISH,
     CONCEPT,
-    PENDING ,
+    PENDING,
 }

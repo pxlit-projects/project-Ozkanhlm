@@ -17,6 +17,8 @@ import { Router } from '@angular/router';
   styleUrl: './add-post.component.css',
 })
 export class AddPostComponent {
+  role = localStorage.getItem('role');
+
   categories: string[] = [];
   statuses: string[] = [];
 
@@ -26,6 +28,12 @@ export class AddPostComponent {
   router: Router = inject(Router);
 
   ngOnInit(): void {
+    if (this.role === 'redacteur') {
+      console.log('Redacteur');
+    } else {
+      console.log('Gebruiker');
+    }
+
     this.postService.getCategories().subscribe({
       next: (data) => {
         this.categories = data;

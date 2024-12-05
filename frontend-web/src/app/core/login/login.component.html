@@ -1,0 +1,22 @@
+<div class="flex justify-center">
+  <form
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+    class="space-y-4 bg-black/10 p-10 rounded-xl w-64"
+  >
+    <div class="flex flex-col gap-y-1">
+      <label for="username">Gebruikersnaam:</label>
+      <input id="username" formControlName="username" />
+    </div>
+    <div class="flex flex-col gap-y-1">
+      <label for="password">Wachtwoord:</label>
+      <input id="password" type="password" formControlName="password" />
+    </div>
+    <button
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      type="submit"
+    >
+      Inloggen
+    </button>
+  </form>
+</div>

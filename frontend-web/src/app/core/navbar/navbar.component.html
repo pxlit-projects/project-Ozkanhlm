@@ -4,23 +4,33 @@
   >
     <div class="w-full" id="navbar-default">
       <ul
-        class="text-3xl font-medium flex p-4 mt-2 border-gray-100 rounded-lg flex-row space-x-8 border-0 bg-white"
+        class="text-3xl font-medium p-4 mt-2 flex justify-between border-gray-100 rounded-lg flex-row space-x-8 border-0 bg-white"
       >
+        <div class="flex gap-10">
+          <li>
+            <a
+              [routerLink]="['/posts']"
+              routerLinkActive="text-orange-600"
+              class="text-gray-900 hover:text-orange-500 duration-300"
+              >Posts</a
+            >
+          </li>
+          <li>
+            <a
+              [routerLink]="['/add']"
+              routerLinkActive="text-orange-600"
+              class="text-gray-900 hover:text-orange-500 duration-300"
+              >Add Post</a
+            >
+          </li>
+        </div>
         <li>
-          <a
-            [routerLink]="['/posts']"
-            routerLinkActive="text-orange-600"
-            class="text-gray-900 hover:text-orange-500 duration-300"
-            >Posts</a
+          <button
+            (click)="logout()"
+            class="text-white hover:bg-red-400 p-2 rounded-lg duration-300 bg-red-600"
           >
-        </li>
-        <li>
-          <a
-            [routerLink]="['/add']"
-            routerLinkActive="text-orange-600"
-            class="text-gray-900 hover:text-orange-500 duration-300"
-            >Add Post</a
-          >
+            Logout
+          </button>
         </li>
       </ul>
     </div>
