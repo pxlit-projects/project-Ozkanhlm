@@ -26,12 +26,22 @@ export class AddPostComponent {
   router: Router = inject(Router);
 
   ngOnInit(): void {
-    this.postService.getCategories().subscribe((data) => {
-      this.categories = data;
+    this.postService.getCategories().subscribe({
+      next: (data) => {
+        this.categories = data;
+      },
+      error: (error) => {
+        console.error('Error fetching categories:', error);
+      },
     });
 
-    this.postService.getStatuses().subscribe((data) => {
-      this.statuses = data;
+    this.postService.getStatuses().subscribe({
+      next: (data) => {
+        this.statuses = data;
+      },
+      error: (error) => {
+        console.error('Error fetching statuses:', error);
+      },
     });
   }
 
@@ -49,11 +59,14 @@ export class AddPostComponent {
       ...this.postForm.value,
     };
 
-    console.log(newPost, 'newPost');
-
-    this.postService.addPost(newPost).subscribe(() => {
-      this.postForm.reset();
-      this.router.navigate(['/posts']);
+    this.postService.addPost(newPost).subscribe({
+      next: () => {
+        this.postForm.reset();
+        this.router.navigate(['/posts']);
+      },
+      error: (error) => {
+        console.error('Error adding post:', error);
+      },
     });
   }
 }

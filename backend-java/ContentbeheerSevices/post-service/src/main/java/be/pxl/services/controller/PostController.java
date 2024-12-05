@@ -43,6 +43,13 @@ public class PostController {
         return postService.findPostById(postId);
     }
 
+    @PutMapping("/{postId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<PostResponse> updatePost(@PathVariable Long postId, @RequestBody PostRequest postRequest) {
+        PostResponse updatedPost = postService.updatePost(postId, postRequest);
+        return ResponseEntity.ok(updatedPost);
+    }
+
     @GetMapping("/categories")
     public List<String> getCategories() {
         return Arrays.stream(Category.values())

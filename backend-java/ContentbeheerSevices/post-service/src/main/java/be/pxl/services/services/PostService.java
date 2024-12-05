@@ -81,4 +81,23 @@ public class PostService implements IPostService {
         );
     }
 
+    @Override
+    public PostResponse updatePost(Long postId, PostRequest postRequest) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new NotFoundException("No post with id [" + postId + "]"));
+
+        post.setTitle(postRequest.getTitle());
+        post.setPicture(postRequest.getPicture());
+        post.setContent(postRequest.getContent());
+        post.setAuthor(postRequest.getAuthor());
+        post.setStatus(postRequest.getStatus());
+        post.setCategory(postRequest.getCategory());
+        post.setComments(postRequest.getComments());
+        post.setReview(postRequest.getReview());
+
+        postRepository.save(post);
+
+        return mapToPostResponse(post);
+    }
+
 }

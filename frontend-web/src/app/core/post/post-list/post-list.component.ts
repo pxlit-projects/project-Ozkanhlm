@@ -20,9 +20,13 @@ export class PostListComponent implements OnInit {
   }
 
   fetchData(): void {
-    this.postService.getPosts().subscribe((data: Post[]) => {
-      console.log(data, 'DATA');
-      this.posts = data;
+    this.postService.getPosts().subscribe({
+      next: (data: Post[]) => {
+        this.posts = data;
+      },
+      error: (error) => {
+        console.error('Error fetching posts:', error);
+      },
     });
   }
 }

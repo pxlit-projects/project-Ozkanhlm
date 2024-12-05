@@ -8,4 +8,6 @@ public interface IPostService {
 
     void addPost(PostRequest postRequest);
     PostResponse findPostById(Long postId);
+
+    PostResponse  updatePost(Long postId, PostRequest postRequest);
 }

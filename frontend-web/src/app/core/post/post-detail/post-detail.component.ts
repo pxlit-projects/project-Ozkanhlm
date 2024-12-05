@@ -1,6 +1,6 @@
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
-import { Observable, Subscription, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../../../shared/services/post.service';
 import { Post } from '../../../shared/models/post.model';
@@ -33,7 +33,7 @@ export class PostDetailComponent {
 
   postForm: FormGroup = this.fb.group({
     title: ['', Validators.required],
-    picture: ['', [Validators.required]],
+    picture: [''],
     content: ['', [Validators.required]],
     author: ['', Validators.required],
     category: ['', Validators.required],
@@ -46,35 +46,49 @@ export class PostDetailComponent {
       return;
     }
 
-    this.post$.subscribe((post) => {
-      if (post) {
-        this.postForm.patchValue(post);
-      }
+    this.post$.subscribe({
+      next: (post) => {
+        if (post) {
+          this.postForm.patchValue(post);
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching post:', err);
+        this.router.navigate(['/no-page']);
+      },
     });
 
-    this.postService.getCategories().subscribe((data) => {
-      this.categories = data;
+    this.postService.getCategories().subscribe({
+      next: (data) => {
+        this.categories = data;
+      },
+      error: (err) => {
+        console.error('Error fetching categories:', err);
+      },
     });
 
-    this.postService.getStatuses().subscribe((data) => {
-      this.statuses = data;
+    this.postService.getStatuses().subscribe({
+      next: (data) => {
+        this.statuses = data;
+      },
+      error: (err) => {
+        console.error('Error fetching statuses:', err);
+      },
     });
   }
 
   onSubmit(): void {
     if (this.postForm.valid) {
       const updatedPost: Post = this.postForm.value;
-      console.log('Updating post...', updatedPost);
 
-      // this.postService.updatePost(updatedPost).subscribe(
-      //   (response) => {
-      //     console.log('Post updated successfully:', response);
-      //     this.router.navigate(['/posts']); // Navigeren naar de lijst met posts
-      //   },
-      //   (error) => {
-      //     console.error('Error updating post:', error);
-      //   }
-      // );
+      this.postService.updatePost(this.id, updatedPost).subscribe({
+        next: () => {
+          this.router.navigate(['/posts']);
+        },
+        error: (error) => {
+          console.error('Error updating post:', error);
+        },
+      });
     } else {
       console.log('Form is not valid');
     }
