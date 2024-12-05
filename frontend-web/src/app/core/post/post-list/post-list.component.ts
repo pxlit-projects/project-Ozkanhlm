@@ -14,10 +14,7 @@ import { RoleService } from '../../../shared/services/role.service';
 })
 export class PostListComponent implements OnInit {
   posts: Post[] = [];
-  postForRole: Post[] = [];
   postService: PostService = inject(PostService);
-  roleService: RoleService = inject(RoleService);
-  role = this.roleService.getRole();
 
   ngOnInit(): void {
     this.fetchData();
@@ -26,23 +23,11 @@ export class PostListComponent implements OnInit {
   fetchData(): void {
     this.postService.getPosts().subscribe({
       next: (data: Post[]) => {
-        this.posts = data;
-
-        this.loadPosts();
+        this.posts = data.filter((data) => data.status === 'PUBLISH').reverse();
       },
       error: (error) => {
         console.error('Error fetching posts:', error);
       },
     });
-  }
-
-  loadPosts(): void {
-    if (this.role === 'redacteur') {
-      this.postForRole = this.posts.reverse();
-    } else if (this.role === 'gebruiker') {
-      this.postForRole = this.posts
-        .filter((post) => post.status === 'PUBLISH')
-        .reverse();
-    }
   }
 }

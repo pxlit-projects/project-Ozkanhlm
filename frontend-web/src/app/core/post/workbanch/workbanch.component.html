@@ -1,0 +1,108 @@
+@if (role === 'redacteur') {
+<div class="container mx-auto p-4">
+  <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Concepts</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    @for(post of conceptPosts; track post.id){
+    <div
+      class="bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105"
+    >
+      @if (post.picture) {
+      <img
+        [src]="post.picture"
+        alt="Post Image"
+        class="w-full h-48 object-cover"
+      />
+      }
+      <div class="p-4">
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">
+          {{ post.title }}
+        </h2>
+        <p class="text-gray-600 mb-4">{{ post.content }}</p>
+        <div class="text-sm text-gray-500 space-y-1">
+          <p>
+            <strong class="font-semibold">Author:</strong> {{ post.author }}
+          </p>
+          <p>
+            <strong class="font-semibold">Category:</strong> {{ post.category }}
+          </p>
+          <p>
+            <strong class="font-semibold">Status:</strong> {{ post.status }}
+          </p>
+          <p>
+            <strong class="font-semibold">Date:</strong>
+            {{ post.createdDate | date : "yyyy-MM-dd" }}
+          </p>
+        </div>
+      </div>
+      <button
+        [routerLink]="['/post', post.id]"
+        routerLinkActive="router-link-active"
+        class="bg-green-500 hover:bg-green-700 text-white float-right font-bold mt-4 mb-4 py-2 px-2 rounded"
+      >
+        Details
+      </button>
+    </div>
+    } @if (conceptPosts.length === 0) {
+    <p class="text-2xl text-center text-red-700">No posts found</p>
+    }
+  </div>
+</div>
+
+<div class="container mx-auto p-4">
+  <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Pending</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    @for(post of pendingPosts; track post.id){
+    <div
+      class="bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105"
+    >
+      @if (post.picture) {
+      <img
+        [src]="post.picture"
+        alt="Post Image"
+        class="w-full h-48 object-cover"
+      />
+      }
+      <div class="p-4">
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">
+          {{ post.title }}
+        </h2>
+        <p class="text-gray-600 mb-4">{{ post.content }}</p>
+        <div class="text-sm text-gray-500 space-y-1">
+          <p>
+            <strong class="font-semibold">Author:</strong> {{ post.author }}
+          </p>
+          <p>
+            <strong class="font-semibold">Category:</strong> {{ post.category }}
+          </p>
+          <p>
+            <strong class="font-semibold">Status:</strong> {{ post.status }}
+          </p>
+          <p>
+            <strong class="font-semibold">Date:</strong>
+            {{ post.createdDate | date : "yyyy-MM-dd" }}
+          </p>
+        </div>
+      </div>
+      <button
+        [routerLink]="['/post', post.id]"
+        routerLinkActive="router-link-active"
+        class="bg-green-500 hover:bg-green-700 text-white float-right font-bold mt-4 mb-4 py-2 px-2 rounded"
+      >
+        Details
+      </button>
+    </div>
+    } @if (pendingPosts.length === 0) {
+    <p class="text-2xl text-center text-red-700">No posts found</p>
+    }
+  </div>
+</div>
+
+}@else{
+<div class="px-20 bg-slate-200 my-10">
+  <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">
+    You are not authorized
+  </h2>
+</div>
+}

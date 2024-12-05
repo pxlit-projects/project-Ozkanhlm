@@ -6,6 +6,7 @@ import { PostDetailComponent } from './core/post/post-detail/post-detail.compone
 import { NoPageComponent } from './core/no-page/no-page.component';
 import { LoginComponent } from './core/login/login.component';
 import { authGuardGuard } from './auth-guard.guard';
+import { WorkbanchComponent } from './core/post/workbanch/workbanch.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -19,6 +20,11 @@ export const routes: Routes = [
     path: 'add',
     component: AddPostComponent,
     canDeactivate: [confirmLeaveGuard],
+    canActivate: [authGuardGuard],
+  },
+  {
+    path: 'workbanch',
+    component: WorkbanchComponent,
     canActivate: [authGuardGuard],
   },
   {
