@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { PostService } from '../../../shared/services/post.service';
 import { Post } from '../../../shared/models/post.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-post',
@@ -22,7 +23,7 @@ export class AddPostComponent {
   fb: FormBuilder = inject(FormBuilder);
 
   postService: PostService = inject(PostService);
-  router: any;
+  router: Router = inject(Router);
 
   ngOnInit(): void {
     this.postService.getCategories().subscribe((data) => {
@@ -36,7 +37,7 @@ export class AddPostComponent {
 
   postForm: FormGroup = this.fb.group({
     title: ['', Validators.required],
-    picture: ['https://picsum.photos/200/300', [Validators.required]],
+    picture: ['', [Validators.required]],
     content: ['', [Validators.required]],
     author: ['', Validators.required],
     category: ['', Validators.required],

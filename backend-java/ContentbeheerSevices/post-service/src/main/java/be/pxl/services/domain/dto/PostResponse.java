@@ -20,6 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostResponse {
+    private Long id;
     private String title;
     private String picture;
     private String content;
@@ -28,4 +29,5 @@ public class PostResponse {
     private Category category;
     private List<Comment> comments;
     private Review review;
+    private LocalDateTime createdDate;
 }

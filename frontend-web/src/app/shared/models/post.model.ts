@@ -1,4 +1,5 @@
 export interface Post {
+  id: number;
   title: string;
   picture: string;
   content: string;
@@ -7,6 +8,7 @@ export interface Post {
   category: string;
   comments?: any[];
   review?: any;
+  createdDate: string;
 }
 
 // export interface PostRequest {

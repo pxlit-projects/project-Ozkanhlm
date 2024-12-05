@@ -15,9 +15,21 @@ export class PostService {
     return this.http.get<Post[]>(this.api);
   }
 
-  addPost(postRequest: Post): Observable<Post> {
-    return this.http.post<Post>(this.api, postRequest);
+  addPost(post: Post): Observable<Post> {
+    return this.http.post<Post>(this.api, post);
   }
+
+  // -----------------
+
+  // updatePost(post: Post): Observable<Post> {
+  //   return this.http.put<Post>(this.api + 'post/api/post/' + post.id, post);
+  // }
+
+  getPost(id: number): Observable<Post> {
+    return this.http.get<Post>(this.api + '/' + id);
+  }
+
+  // -----------------
 
   getCategories(): Observable<string[]> {
     return this.http.get<string[]>(this.api + '/categories');

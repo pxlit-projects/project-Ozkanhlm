@@ -7,4 +7,5 @@ public interface IPostService {
     List<PostResponse> getAllPosts();
 
     void addPost(PostRequest postRequest);
+    PostResponse findPostById(Long postId);
 }

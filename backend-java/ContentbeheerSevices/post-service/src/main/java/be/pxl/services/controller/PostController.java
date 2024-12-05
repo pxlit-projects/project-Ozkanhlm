@@ -3,6 +3,7 @@ package be.pxl.services.controller;
 import be.pxl.services.domain.Category;
 import be.pxl.services.domain.Status;
 import be.pxl.services.domain.dto.PostRequest;
+import be.pxl.services.domain.dto.PostResponse;
 import be.pxl.services.services.IPostService;
 import lombok.RequiredArgsConstructor;
 
@@ -37,6 +38,10 @@ public class PostController {
         postService.addPost(postRequest);
     }
 
+    @GetMapping("/{postId}")
+    public PostResponse findPostById(@PathVariable Long postId) {
+        return postService.findPostById(postId);
+    }
 
     @GetMapping("/categories")
     public List<String> getCategories() {

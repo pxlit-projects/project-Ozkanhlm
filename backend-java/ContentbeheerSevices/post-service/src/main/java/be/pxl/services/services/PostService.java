@@ -6,6 +6,7 @@ import be.pxl.services.domain.Post;
 import be.pxl.services.domain.dto.PostRequest;
 import be.pxl.services.domain.dto.PostResponse;
 import be.pxl.services.repository.PostRepository;
+import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class PostService implements IPostService {
 
     private PostResponse mapToPostResponse(Post post) {
         return PostResponse.builder()
+                .id(post.getId())
                 .title(post.getTitle())
                 .picture(post.getPicture())
                 .content(post.getContent())
@@ -34,6 +36,7 @@ public class PostService implements IPostService {
                 .category(post.getCategory())
                 .comments(post.getComments())
                 .review(post.getReview())
+                .createdDate(post.getCreatedDate())
                 .build();
     }
 
@@ -59,4 +62,23 @@ public class PostService implements IPostService {
         notificationClient.sendNotification(notificationRequest);
 
     }
+
+    @Override
+    public PostResponse findPostById(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new NotFoundException("No post with id [" + postId + "]"));
+        return new PostResponse(
+                post.getId(),
+                post.getTitle(),
+                post.getPicture(),
+                post.getContent(),
+                post.getAuthor(),
+                post.getStatus(),
+                post.getCategory(),
+                post.getComments(),
+                post.getReview(),
+                post.getCreatedDate()
+        );
+    }
+
 }

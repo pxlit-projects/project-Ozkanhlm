@@ -1,0 +1,59 @@
+@if (post$ | async; as post){
+<div class="px-20 bg-slate-200 my-10 lg:mx-64">
+  <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">
+    {{ post.title }}
+  </h2>
+  <form
+    [formGroup]="postForm"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col gap-5"
+  >
+    <div>
+      <label for="title">Title</label>
+      <input id="title" formControlName="title" />
+    </div>
+    <img [src]="post.picture" alt="Post Image" class="h-48 object-cover" />
+    <div>
+      <label for="picture">Picture URL</label>
+      <input id="picture" formControlName="picture" />
+    </div>
+    <div>
+      <label for="content">Content</label>
+      <textarea id="content" formControlName="content"></textarea>
+    </div>
+    <div>
+      <label for="author">Author</label>
+      <input id="author" formControlName="author" />
+    </div>
+    <div>
+      <label for="category">Category</label>
+      <select id="category" formControlName="category">
+        @for(category of categories; track category){
+        <option [value]="category">{{ category }}</option>
+        }
+        <!-- <option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </option> -->
+      </select>
+    </div>
+    <div>
+      <label for="status">Status</label>
+      <select id="status" formControlName="status">
+        @for(status of statuses; track status ){
+        <option [value]="status">{{ status }}</option>
+        }
+        <!-- <option *ngFor="let status of statuses" [value]="status">
+          {{ status }}
+        </option> -->
+      </select>
+    </div>
+    <button
+      type="submit"
+      [disabled]="!postForm.valid"
+      class="bg-green-500 hover:bg-green-700 text-white float-right font-bold mt-4 mb-4 py-2 px-2 rounded"
+    >
+      Update Post
+    </button>
+  </form>
+</div>
+}
