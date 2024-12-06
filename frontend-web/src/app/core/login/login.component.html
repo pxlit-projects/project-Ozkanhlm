@@ -1,15 +1,24 @@
 <div class="flex justify-center">
+  <img
+    [src]="backgroundImage"
+    alt="Background Image"
+    class="w-full top-0 h-screen object-cover opacity-60 absolute"
+  />
   <form
     [formGroup]="loginForm"
     (ngSubmit)="onSubmit()"
-    class="space-y-4 bg-black/10 p-10 rounded-xl w-64"
+    class="space-y-4 z-50 mt-40 bg-black/50 p-10 rounded-xl w-64"
   >
     <div class="flex flex-col gap-y-1">
-      <label for="username">Gebruikersnaam:</label>
+      <label for="username" class="text-white font-semibold text-xl"
+        >Gebruikersnaam:</label
+      >
       <input id="username" formControlName="username" />
     </div>
     <div class="flex flex-col gap-y-1">
-      <label for="password">Wachtwoord:</label>
+      <label for="password" class="text-white font-semibold text-xl"
+        >Wachtwoord:</label
+      >
       <input id="password" type="password" formControlName="password" />
     </div>
     <button

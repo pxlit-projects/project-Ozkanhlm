@@ -17,6 +17,7 @@ import { RoleService } from '../../shared/services/role.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
+  backgroundImage = 'bg-java.jpg';
   router: Router = inject(Router);
   roleService: RoleService = inject(RoleService);
   fb: FormBuilder = inject(FormBuilder);
