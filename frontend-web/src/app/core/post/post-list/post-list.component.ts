@@ -1,15 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Post } from '../../../shared/models/post.model';
 import { PostService } from '../../../shared/services/post.service';
-import { DatePipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { FilterComponent } from '../filter/filter.component';
 import { Filter } from '../../../shared/models/filter.model';
+import { PostCardComponent } from '../post-card/post-card.component';
 
 @Component({
   selector: 'app-post-list',
   standalone: true,
-  imports: [DatePipe, RouterLink, FilterComponent],
+  imports: [FilterComponent, PostCardComponent],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.css',
 })

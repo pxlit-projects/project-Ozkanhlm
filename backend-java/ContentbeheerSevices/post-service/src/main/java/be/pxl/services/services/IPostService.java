@@ -11,5 +11,4 @@ public interface IPostService {
     void deletePost(Long postId);
     List<String> getCategories();
     List<String> getStatuses();
-
 }

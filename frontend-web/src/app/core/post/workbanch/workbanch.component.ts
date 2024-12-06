@@ -2,15 +2,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RoleService } from '../../../shared/services/role.service';
 import { PostService } from '../../../shared/services/post.service';
 import { Post } from '../../../shared/models/post.model';
-import { DatePipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { FilterComponent } from '../filter/filter.component';
 import { Filter } from '../../../shared/models/filter.model';
+import { PostCardComponent } from '../post-card/post-card.component';
 
 @Component({
   selector: 'app-workbanch',
   standalone: true,
-  imports: [DatePipe, RouterLink, FilterComponent],
+  imports: [FilterComponent, PostCardComponent],
   templateUrl: './workbanch.component.html',
   styleUrls: ['./workbanch.component.css'],
 })
