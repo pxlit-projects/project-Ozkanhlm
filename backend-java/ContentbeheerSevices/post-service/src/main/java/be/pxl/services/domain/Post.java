@@ -28,6 +28,7 @@ public class Post {
 
     private String picture;
 
+    @Column(columnDefinition = "LONGTEXT")
     private String content;
 
     private String author;

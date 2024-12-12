@@ -35,6 +35,7 @@ public class PostController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addPost(@RequestBody PostRequest postRequest){
         logger.info("****Received post request: {}****", postRequest);
+        logger.info("Received content of length: {}", postRequest.getContent().length());
         postService.addPost(postRequest);
     }
 
