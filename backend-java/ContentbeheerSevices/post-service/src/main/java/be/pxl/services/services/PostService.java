@@ -1,6 +1,7 @@
 package be.pxl.services.services;
 
 import be.pxl.services.client.NotificationClient;
+import be.pxl.services.controller.PostController;
 import be.pxl.services.domain.Category;
 import be.pxl.services.domain.NotificationRequest;
 import be.pxl.services.domain.Post;
@@ -8,8 +9,11 @@ import be.pxl.services.domain.Status;
 import be.pxl.services.domain.dto.PostRequest;
 import be.pxl.services.domain.dto.PostResponse;
 import be.pxl.services.repository.PostRepository;
+import feign.FeignException;
 import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -22,6 +26,8 @@ public class PostService implements IPostService {
 
     private final PostRepository postRepository;
     private final NotificationClient notificationClient;
+
+    private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
     @Override
     public List<PostResponse> getAllPosts() {
@@ -46,6 +52,7 @@ public class PostService implements IPostService {
 
     @Override
     public void addPost(PostRequest postRequest) {
+
         Post post = Post.builder()
                 .title(postRequest.getTitle())
                 .picture(postRequest.getPicture())
@@ -58,13 +65,14 @@ public class PostService implements IPostService {
                 .build();
         postRepository.save(post);
 
-        NotificationRequest notificationRequest =
-                NotificationRequest.builder()
-                        .message("Post Created")
-                        .sender("Ozkan")
-                        .build();
-        notificationClient.sendNotification(notificationRequest);
 
+        NotificationRequest notificationRequest = NotificationRequest.builder()
+                .text("A new post has been created!")
+                .subject("JavaProject")
+                .to("ozkanhalim3600@gmail.com")
+                .build();
+
+        notificationClient.sendNotification(notificationRequest);
     }
 
     @Override

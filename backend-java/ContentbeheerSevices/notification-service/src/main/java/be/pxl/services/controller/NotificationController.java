@@ -13,14 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequestMapping("/api/notification")
 public class NotificationController {
-
     private final NotificationService notificationService;
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void sendMessage(@RequestBody Notification notification){
         notificationService.sendMessage(notification);
     }
-
-
 }
