@@ -34,6 +34,13 @@ services:
     volumes:
       - commentservice_data:/var/lib/mysql
 
+  rabbitmq:
+    image: rabbitmq:4.0-management
+    container_name: rabbitmq-container
+    ports:
+      - "5672:5672" 
+      - "15672:15672" 
+
 volumes:
   postservice_data:
   reviewservice_data:
