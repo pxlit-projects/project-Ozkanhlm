@@ -36,6 +36,7 @@ public class PostController {
     @GetMapping("/{postId}")
     @ResponseStatus(HttpStatus.OK)
     public PostResponse findPostById(@PathVariable Long postId) {
+
         return postService.findPostById(postId);
     }
 

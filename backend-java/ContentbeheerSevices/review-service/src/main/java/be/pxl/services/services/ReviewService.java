@@ -7,9 +7,12 @@ import be.pxl.services.domain.dto.ReviewRequest;
 import be.pxl.services.domain.dto.ReviewResponse;
 import be.pxl.services.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +20,8 @@ public class ReviewService implements IReviewService {
 
     private final ReviewRepository reviewRepository;
 //    private final NotificationClient notificationClient;
+
+    private static final Logger logger = LoggerFactory.getLogger(ReviewService.class);
     @Override
     public List<ReviewResponse> getAllReviews() {
         List<Review> reviews = reviewRepository.findAll();
@@ -54,7 +59,14 @@ public class ReviewService implements IReviewService {
 
     @Override
     public List<Long> getReviewsByPostId(Long postId) {
-        List<Long> reviews = reviewRepository.findByPostId(postId);
+        List<Long> reviews = reviewRepository.findAllByPostId(postId)
+                .stream()
+                .map(Review::getId)
+                .collect(Collectors.toList());
+
+        System.out.println("Review with ID: " + reviews);
+
         return reviews;
+
     }
 }

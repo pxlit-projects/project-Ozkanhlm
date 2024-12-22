@@ -6,6 +6,8 @@ import be.pxl.services.domain.dto.ReviewResponse;
 import be.pxl.services.messaging.ReviewMessageProducer;
 import be.pxl.services.services.IReviewService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/review")
 @RequiredArgsConstructor
+@RequestMapping("/api/review")
 public class ReviewController {
 
     private final IReviewService reviewService;

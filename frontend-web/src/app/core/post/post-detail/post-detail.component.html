@@ -45,6 +45,10 @@
       <strong class="font-semibold">Date:</strong>
       {{ post.createdDate | date : "yyyy-MM-dd" }}
     </p>
+
+    <div>
+      <p>reviews: {{ post.reviews }}</p>
+    </div>
     <button
       type="submit"
       [disabled]="!postForm.valid"

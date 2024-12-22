@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -83,7 +84,16 @@ public class PostService implements IPostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("No post with id [" + postId + "]"));
 
-        List<Long> reviews = reviewClient.getReviewsByPostId(postId);
+        List<Long> reviews;
+        try {
+            reviews = reviewClient.getReviewsByPostId(postId);
+        } catch (FeignException.NotFound e) {
+            logger.warn("No reviews found for post {}", postId);
+            reviews = Collections.emptyList();
+        } catch (FeignException e) {
+            logger.error("Error fetching reviews for post {}: {}", postId, e.getMessage());
+            reviews = Collections.emptyList();
+        }
 
         logger.info("Found reviews for post {}: {}", postId, reviews);
 
@@ -155,9 +165,6 @@ public class PostService implements IPostService {
         }
 
         post.getReviewIds().add(reviewMessage.getId());
-
-        System.out.println("Updated reviewIds: " + post.getReviewIds());  // Debugging line
-
         postRepository.save(post);
     }
 }

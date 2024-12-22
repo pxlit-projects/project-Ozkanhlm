@@ -7,6 +7,6 @@ export interface Post {
   status: string;
   category: string;
   comments?: any[];
-  review?: any;
+  reviews?: number[];
   createdDate: string;
 }

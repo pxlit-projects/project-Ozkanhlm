@@ -54,6 +54,7 @@ export class PostDetailComponent {
     this.post$.subscribe({
       next: (post) => {
         if (post) {
+          console.log('Post details ontvangen:', post);
           this.postForm.patchValue(post);
         }
       },
