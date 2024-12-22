@@ -1,6 +1,5 @@
 package be.pxl.services.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,8 +41,10 @@ public class Post {
     @Transient
     private List<Comment> comments;
 
-    @Transient
-    private Review review;
+//    @Transient
+//    private Review review;
+    @ElementCollection
+    private List<Long> reviewIds;
 
     @CreationTimestamp
     @Column(name = "created_date")

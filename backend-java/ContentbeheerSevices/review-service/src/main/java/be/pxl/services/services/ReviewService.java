@@ -16,33 +16,45 @@ import java.util.List;
 public class ReviewService implements IReviewService {
 
     private final ReviewRepository reviewRepository;
-    private final NotificationClient notificationClient;
+//    private final NotificationClient notificationClient;
     @Override
     public List<ReviewResponse> getAllReviews() {
-         List<Review> reviews = reviewRepository.findAll();
-         return reviews.stream().map(review -> mapToReviewResponse(review)).toList();
+        List<Review> reviews = reviewRepository.findAll();
+        return reviews.stream().map(this::mapToReviewResponse).toList();
     }
 
     private ReviewResponse mapToReviewResponse(Review review) {
         return ReviewResponse.builder()
-                .titel(review.getComment())
+                .id(review.getId())
+                .reviewStatus(review.getReviewStatus())
+                .reviewMessage(review.getReviewMessage())
+                .postId(review.getPostId())
                 .build();
     }
 
     @Override
-    public void addReview(ReviewRequest reviewRequest) {
+    public boolean addReview(ReviewRequest reviewRequest) {
         Review review = Review.builder()
-                .comment(reviewRequest.getTitel())
+                .reviewMessage(reviewRequest.getReviewMessage())
+                .reviewStatus(reviewRequest.getReviewStatus())
+                .postId(reviewRequest.getPostId())
                 .build();
+
         reviewRepository.save(review);
+        System.out.println("Review saved with ID: " + review.getId());
 
-        NotificationRequest notificationRequest =
-                NotificationRequest.builder()
-                        .message("Review Created")
-                        .sender("Ozkan")
-                        .build();
-        notificationClient.sendNotification(notificationRequest);
+//        NotificationRequest notificationRequest = NotificationRequest.builder()
+//                .message("Review Created")
+//                .sender("Ozkan")
+//                .build();
+//        notificationClient.sendNotification(notificationRequest);
 
+        return true;
+    }
 
+    @Override
+    public List<Long> getReviewsByPostId(Long postId) {
+        List<Long> reviews = reviewRepository.findByPostId(postId);
+        return reviews;
     }
 }

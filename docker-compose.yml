@@ -35,7 +35,7 @@ services:
       - commentservice_data:/var/lib/mysql
 
   rabbitmq:
-    image: rabbitmq:4.0-management
+    image: rabbitmq:3-management
     container_name: rabbitmq-container
     ports:
       - "5672:5672" 

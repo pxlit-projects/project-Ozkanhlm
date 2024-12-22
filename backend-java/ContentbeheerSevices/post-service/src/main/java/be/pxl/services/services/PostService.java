@@ -1,21 +1,23 @@
 package be.pxl.services.services;
 
 import be.pxl.services.client.NotificationClient;
-import be.pxl.services.controller.PostController;
+import be.pxl.services.client.ReviewClient;
 import be.pxl.services.domain.Category;
-import be.pxl.services.domain.NotificationRequest;
+import be.pxl.services.domain.Review;
+import be.pxl.services.domain.dto.*;
 import be.pxl.services.domain.Post;
 import be.pxl.services.domain.Status;
-import be.pxl.services.domain.dto.PostRequest;
-import be.pxl.services.domain.dto.PostResponse;
 import be.pxl.services.repository.PostRepository;
 import feign.FeignException;
+import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.beans.Transient;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,7 +28,7 @@ public class PostService implements IPostService {
 
     private final PostRepository postRepository;
     private final NotificationClient notificationClient;
-
+    private final ReviewClient reviewClient;
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
     @Override
@@ -36,6 +38,7 @@ public class PostService implements IPostService {
     }
 
     private PostResponse mapToPostResponse(Post post) {
+
         return PostResponse.builder()
                 .id(post.getId())
                 .title(post.getTitle())
@@ -45,7 +48,7 @@ public class PostService implements IPostService {
                 .status(post.getStatus())
                 .category(post.getCategory())
                 .comments(post.getComments())
-                .review(post.getReview())
+                .reviews(post.getReviewIds())
                 .createdDate(post.getCreatedDate())
                 .build();
     }
@@ -61,7 +64,7 @@ public class PostService implements IPostService {
                 .status(postRequest.getStatus())
                 .category(postRequest.getCategory())
                 .comments(postRequest.getComments())
-                .review(postRequest.getReview())
+                .reviewIds(postRequest.getReviewIds())
                 .build();
         postRepository.save(post);
 
@@ -79,6 +82,11 @@ public class PostService implements IPostService {
     public PostResponse findPostById(Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("No post with id [" + postId + "]"));
+
+        List<Long> reviews = reviewClient.getReviewsByPostId(postId);
+
+        logger.info("Found reviews for post {}: {}", postId, reviews);
+
         return new PostResponse(
                 post.getId(),
                 post.getTitle(),
@@ -88,7 +96,7 @@ public class PostService implements IPostService {
                 post.getStatus(),
                 post.getCategory(),
                 post.getComments(),
-                post.getReview(),
+                reviews,
                 post.getCreatedDate()
         );
     }
@@ -105,7 +113,7 @@ public class PostService implements IPostService {
         post.setStatus(postRequest.getStatus());
         post.setCategory(postRequest.getCategory());
         post.setComments(postRequest.getComments());
-        post.setReview(postRequest.getReview());
+        post.setReviewIds(postRequest.getReviewIds());
 
         postRepository.save(post);
 
@@ -131,5 +139,25 @@ public class PostService implements IPostService {
         return Arrays.stream(Status.values())
                 .map(Enum::name)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void updateReviewPost(ReviewMessage reviewMessage) {
+
+        Post post = postRepository.findById(reviewMessage.getPostId())
+                .orElseThrow(() -> new NotFoundException("No post with id [" + reviewMessage.getPostId() + "]"));
+
+
+        System.out.println("Post found: " + post);
+
+        if (post.getReviewIds() == null) {
+            post.setReviewIds(new ArrayList<>());
+        }
+
+        post.getReviewIds().add(reviewMessage.getId());
+
+        System.out.println("Updated reviewIds: " + post.getReviewIds());  // Debugging line
+
+        postRepository.save(post);
     }
 }

@@ -23,5 +23,5 @@ public class PostRequest {
     private Status status;
     private Category category;
     private List<Comment> comments;
-    private Review review;
+    private List<Long> reviewIds;
 }

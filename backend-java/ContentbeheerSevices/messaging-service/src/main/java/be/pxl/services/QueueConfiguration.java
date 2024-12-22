@@ -10,5 +10,4 @@ public class QueueConfiguration {
     public Queue myQueue() {
         return new Queue("myQueue", false);
     }
-
 }

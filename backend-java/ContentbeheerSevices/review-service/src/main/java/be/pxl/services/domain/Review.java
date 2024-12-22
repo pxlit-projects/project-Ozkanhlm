@@ -18,11 +18,10 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private ReviewStatus reviewStatus;
+
+    private String reviewMessage;
+
     @Column(name="post_id")
     private Long postId;
-
-    // private ReviewState review; ENUM
-
-    private String comment;
-
 }

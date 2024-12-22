@@ -1,5 +1,6 @@
 package be.pxl.services.domain.dto;
 
+import be.pxl.services.domain.ReviewStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,5 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReviewRequest {
-    private String titel;
+    private Long id;
+    private ReviewStatus reviewStatus;
+    private String reviewMessage;
+    private Long postId;
 }

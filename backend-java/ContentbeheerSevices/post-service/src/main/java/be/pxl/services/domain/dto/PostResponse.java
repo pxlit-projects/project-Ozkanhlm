@@ -4,9 +4,6 @@ import be.pxl.services.domain.Category;
 import be.pxl.services.domain.Comment;
 import be.pxl.services.domain.Review;
 import be.pxl.services.domain.Status;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +25,6 @@ public class PostResponse {
     private Status status;
     private Category category;
     private List<Comment> comments;
-    private Review review;
+    private List<Long> reviews;
     private LocalDateTime createdDate;
 }
