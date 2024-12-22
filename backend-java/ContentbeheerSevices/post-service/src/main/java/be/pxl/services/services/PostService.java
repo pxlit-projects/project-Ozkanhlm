@@ -39,6 +39,7 @@ public class PostService implements IPostService {
     }
 
     private PostResponse mapToPostResponse(Post post) {
+        List<ReviewResponse> reviews = reviewClient.getReviewsByPostId(post.getId());
 
         return PostResponse.builder()
                 .id(post.getId())
@@ -49,7 +50,7 @@ public class PostService implements IPostService {
                 .status(post.getStatus())
                 .category(post.getCategory())
                 .comments(post.getComments())
-                .reviews(post.getReviewIds())
+                .reviews(reviews)
                 .createdDate(post.getCreatedDate())
                 .build();
     }
@@ -84,7 +85,7 @@ public class PostService implements IPostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("No post with id [" + postId + "]"));
 
-        List<Long> reviews;
+        List<ReviewResponse> reviews;
         try {
             reviews = reviewClient.getReviewsByPostId(postId);
         } catch (FeignException.NotFound e) {
@@ -134,6 +135,9 @@ public class PostService implements IPostService {
     public void deletePost(Long postId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("No post with id [" + postId + "]"));
+
+        reviewClient.deleteReviewsByPostId(postId);
+
         postRepository.delete(post);
     }
 

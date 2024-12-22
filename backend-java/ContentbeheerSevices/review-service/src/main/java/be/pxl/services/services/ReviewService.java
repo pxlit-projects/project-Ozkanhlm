@@ -58,15 +58,18 @@ public class ReviewService implements IReviewService {
     }
 
     @Override
-    public List<Long> getReviewsByPostId(Long postId) {
-        List<Long> reviews = reviewRepository.findAllByPostId(postId)
-                .stream()
-                .map(Review::getId)
+    public List<ReviewResponse> getReviewsByPostId(Long postId) {
+
+        List<Review> reviews = reviewRepository.findAllByPostId(postId);
+        return reviews.stream()
+                .map(this::mapToReviewResponse)
                 .collect(Collectors.toList());
+    }
 
-        System.out.println("Review with ID: " + reviews);
-
-        return reviews;
-
+    public void deleteReviewsByPostId(Long postId) {
+        List<Review> reviews = reviewRepository.findAllByPostId(postId);
+        for (Review review : reviews) {
+            reviewRepository.delete(review);
+        }
     }
 }

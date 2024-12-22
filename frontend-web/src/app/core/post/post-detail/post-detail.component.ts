@@ -1,3 +1,4 @@
+import { ReviewService } from './../../../shared/services/review.service';
 import { Component, inject } from '@angular/core';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -11,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RoleService } from '../../../shared/services/role.service';
+import { Review } from '../../../shared/models/review.model';
 @Component({
   selector: 'app-post-detail',
   standalone: true,
@@ -19,6 +21,7 @@ import { RoleService } from '../../../shared/services/role.service';
   styleUrl: './post-detail.component.css',
 })
 export class PostDetailComponent {
+  isRejected: boolean = false;
   roleService: RoleService = inject(RoleService);
   role = this.roleService.getRole();
 
@@ -26,14 +29,12 @@ export class PostDetailComponent {
   statuses: string[] = [];
 
   fb: FormBuilder = inject(FormBuilder);
-
   postService: PostService = inject(PostService);
-
+  reviewService: ReviewService = inject(ReviewService);
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
 
   id: number = this.route.snapshot.params['id'];
-
   post$: Observable<Post> = this.postService.getPost(this.id);
 
   postForm: FormGroup = this.fb.group({
@@ -45,71 +46,98 @@ export class PostDetailComponent {
     status: ['', Validators.required],
   });
 
+  reviewForm: FormGroup = this.fb.group({
+    reviewStatus: ['', Validators.required],
+    reviewMessage: [''],
+  });
+
   ngOnInit(): void {
     if (isNaN(this.id)) {
       this.router.navigate(['/no-page']);
       return;
     }
 
+    this.loadPostDetails();
+    this.loadCategoriesAndStatuses();
+  }
+
+  private loadPostDetails(): void {
     this.post$.subscribe({
       next: (post) => {
         if (post) {
-          console.log('Post details ontvangen:', post);
+          console.log('Post details ontvangen:', post.reviews);
           this.postForm.patchValue(post);
         }
       },
-      error: (err) => {
-        console.error('Error fetching post:', err);
-        this.router.navigate(['/no-page']);
-      },
+      error: () => this.router.navigate(['/no-page']),
     });
+  }
 
+  private loadCategoriesAndStatuses(): void {
     this.postService.getCategories().subscribe({
-      next: (data) => {
-        this.categories = data;
-      },
-      error: (err) => {
-        console.error('Error fetching categories:', err);
-      },
+      next: (data) => (this.categories = data),
+      error: (err) => console.error('Error fetching categories:', err),
     });
 
     this.postService.getStatuses().subscribe({
-      next: (data) => {
-        this.statuses = data;
-      },
-      error: (err) => {
-        console.error('Error fetching statuses:', err);
-      },
+      next: (data) => (this.statuses = data),
+      error: (err) => console.error('Error fetching statuses:', err),
     });
   }
 
   onSubmit(): void {
     if (this.postForm.valid) {
-      const updatedPost: Post = this.postForm.value;
-
-      this.postService.updatePost(this.id, updatedPost).subscribe({
-        next: () => {
-          this.router.navigate(['/posts']);
-        },
-        error: (error) => {
-          console.error('Error updating post:', error);
-        },
-      });
+      this.updatePost();
     } else {
-      console.log('Form is not valid');
+      console.warn('Form is not valid');
     }
+  }
+
+  private updatePost(): void {
+    const updatedPost: Post = this.postForm.value;
+    this.postService.updatePost(this.id, updatedPost).subscribe({
+      next: () => this.router.navigate(['/posts']),
+      error: (err) => console.error('Error updating post:', err),
+    });
   }
 
   deletePost(): void {
     if (confirm('Are you sure you want to delete this post?')) {
       this.postService.deletePost(this.id).subscribe({
-        next: () => {
-          this.router.navigate(['/posts']);
-        },
-        error: (error) => {
-          console.error('Error deleting post:', error);
-        },
+        next: () => this.router.navigate(['/posts']),
+        error: (err) => console.error('Error deleting post:', err),
       });
     }
+  }
+
+  onStatusChange(status: string): void {
+    if (status === 'REJECTED') {
+      this.isRejected = true;
+    } else {
+      this.isRejected = false;
+    }
+  }
+
+  onSubmitReview(): void {
+    if (!this.reviewForm.valid) {
+      console.warn('Review form is not valid');
+      return;
+    }
+
+    const reviewData: Review = this.reviewForm.value;
+    reviewData.postId = this.id;
+
+    if (reviewData.reviewStatus === 'APPROVED') {
+      this.postForm.patchValue({ status: 'PUBLISH' });
+      this.updatePost();
+    }
+
+    this.addReview(reviewData);
+  }
+  private addReview(reviewData: Review): void {
+    this.reviewService.addReview(reviewData).subscribe({
+      next: () => this.router.navigate(['/posts']),
+      error: (err) => console.error('Error adding review:', err),
+    });
   }
 }

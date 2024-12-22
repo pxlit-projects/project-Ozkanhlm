@@ -33,8 +33,6 @@ export class AddPostComponent {
     this.postService.getCategories().subscribe({
       next: (data) => {
         this.categories = data;
-
-        console.log(this.categories);
       },
       error: (error) => {
         console.error('Error fetching categories:', error);
@@ -64,6 +62,8 @@ export class AddPostComponent {
     const newPost: Post = {
       ...this.postForm.value,
     };
+
+    console.log('Verzonden gegevens:', newPost);
 
     this.postService.addPost(newPost).subscribe({
       next: () => {

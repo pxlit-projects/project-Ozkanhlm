@@ -28,8 +28,8 @@ public class ReviewController {
     }
 
     @GetMapping("/post/{postId}")
-    public ResponseEntity<List<Long>> getReviewsByPostId(@PathVariable Long postId) {
-        List<Long> reviews = reviewService.getReviewsByPostId(postId);
+    public ResponseEntity<List<ReviewResponse>> getReviewsByPostId(@PathVariable Long postId) {
+        List<ReviewResponse> reviews = reviewService.getReviewsByPostId(postId);
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
@@ -48,5 +48,11 @@ public class ReviewController {
         } else {
             return new ResponseEntity<>("Post not saved", HttpStatus.NOT_FOUND);
         }
+    }
+
+    @DeleteMapping("/post/{postId}")
+    public ResponseEntity<Void> deleteReviewsByPostId(@PathVariable Long postId) {
+        reviewService.deleteReviewsByPostId(postId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

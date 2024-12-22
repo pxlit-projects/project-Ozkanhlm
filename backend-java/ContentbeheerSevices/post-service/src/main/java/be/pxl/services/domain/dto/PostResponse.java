@@ -25,6 +25,6 @@ public class PostResponse {
     private Status status;
     private Category category;
     private List<Comment> comments;
-    private List<Long> reviews;
+    private List<ReviewResponse> reviews;
     private LocalDateTime createdDate;
 }

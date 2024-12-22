@@ -46,25 +46,92 @@
       {{ post.createdDate | date : "yyyy-MM-dd" }}
     </p>
 
-    <div>
-      <p>reviews: {{ post.reviews }}</p>
+    <div class="flex justify-between">
+      <button
+        type="submit"
+        [disabled]="!postForm.valid"
+        class="bg-green-500 hover:bg-green-700 text-white float-right font-bold mt-4 mb-4 py-2 px-2 rounded"
+      >
+        Update Post
+      </button>
+
+      <button
+        (click)="deletePost()"
+        class="bg-red-500 hover:bg-red-700 text-white float-left font-bold mt-4 mb-4 py-2 px-2 rounded"
+      >
+        Delete Post
+      </button>
     </div>
-    <button
-      type="submit"
-      [disabled]="!postForm.valid"
-      class="bg-green-500 hover:bg-green-700 text-white float-right font-bold mt-4 mb-4 py-2 px-2 rounded"
-    >
-      Update Post
-    </button>
   </form>
 
-  <button
-    (click)="deletePost()"
-    class="bg-red-500 hover:bg-red-700 text-white float-left font-bold mt-4 mb-4 py-2 px-2 rounded"
+  @if(post.status === 'PENDING') {
+  <form
+    [formGroup]="reviewForm"
+    (ngSubmit)="onSubmitReview()"
+    class="flex flex-col gap-5"
   >
-    Delete Post
-  </button>
+    <div class="pb-10">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Reviews</h2>
+      <div>
+        @for (review of post.reviews; track $index) {
+        <div class="flex gap-x-3">
+          <p>Status: {{ review.reviewStatus }}</p>
+          <p>Message: {{ review.reviewMessage }}</p>
+        </div>
+        }
+      </div>
+
+      <div class="flex flex-col gap-y-3">
+        <label for="reviewStatus" class="font-bold">Review status</label>
+        <div class="flex gap-x-5">
+          <div>
+            <input
+              type="radio"
+              id="approve"
+              formControlName="reviewStatus"
+              value="APPROVED"
+              (change)="onStatusChange('APPROVED')"
+            />
+            <label for="approve">Approve</label>
+          </div>
+
+          <div>
+            <input
+              type="radio"
+              id="reject"
+              formControlName="reviewStatus"
+              value="REJECTED"
+              (change)="onStatusChange('REJECTED')"
+            />
+            <label for="reject">Reject</label>
+          </div>
+        </div>
+      </div>
+
+      @if(isRejected) {
+      <div>
+        <div class="flex gap-x-5">
+          <label for="reviewMessage">Reject Reason</label>
+          <input
+            id="reviewMessage"
+            formControlName="reviewMessage"
+            placeholder="Provide reason for rejection"
+          />
+        </div>
+      </div>
+      }
+      <button
+        type="submit"
+        [disabled]="!postForm.valid"
+        class="bg-green-500 hover:bg-green-700 text-white float-right font-bold mt-4 mb-4 py-2 px-2 rounded"
+      >
+        Update Post
+      </button>
+    </div>
+  </form>
+  }
 </div>
+
 }@else{
 <div class="p-20 bg-slate-200 my-10 lg:mx-64">
   <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">
