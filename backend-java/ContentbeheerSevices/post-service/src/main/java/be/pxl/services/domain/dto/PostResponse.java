@@ -24,7 +24,7 @@ public class PostResponse {
     private String author;
     private Status status;
     private Category category;
-    private List<Comment> comments;
+    private List<CommentResponse> comments;
     private List<ReviewResponse> reviews;
     private LocalDateTime createdDate;
 }

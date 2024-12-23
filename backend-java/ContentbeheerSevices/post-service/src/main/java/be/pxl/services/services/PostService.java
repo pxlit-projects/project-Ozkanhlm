@@ -1,5 +1,6 @@
 package be.pxl.services.services;
 
+import be.pxl.services.client.CommentClient;
 import be.pxl.services.client.NotificationClient;
 import be.pxl.services.client.ReviewClient;
 import be.pxl.services.domain.Category;
@@ -28,12 +29,13 @@ public class PostService implements IPostService {
     private final PostRepository postRepository;
     private final NotificationClient notificationClient;
     private final ReviewClient reviewClient;
+    private final CommentClient commentClient;
     private static final Logger logger = LoggerFactory.getLogger(PostService.class);
 
     @Override
     public List<PostResponse> getAllPosts() {
          List<Post> posts = postRepository.findAll();
-         return posts.stream().map(post -> mapToPostResponse(post)).toList();
+         return posts.stream().map(this::mapToPostResponse).toList();
     }
 
     private PostResponse mapToPostResponse(Post post) {
@@ -46,6 +48,14 @@ public class PostService implements IPostService {
             reviews = Collections.emptyList();
         }
 
+        List<CommentResponse> comments;
+        try {
+            comments = commentClient.getCommentsByPostId(post.getId());
+        } catch (Exception e) {
+            logger.error("Error fetching comments for post {}: {}", post.getId(), e.getMessage());
+            comments = Collections.emptyList();
+        }
+
         return PostResponse.builder()
                 .id(post.getId())
                 .title(post.getTitle())
@@ -54,7 +64,7 @@ public class PostService implements IPostService {
                 .author(post.getAuthor())
                 .status(post.getStatus())
                 .category(post.getCategory())
-                .comments(post.getComments())
+                .comments(comments)
                 .reviews(reviews)
                 .createdDate(post.getCreatedDate())
                 .build();
@@ -70,7 +80,7 @@ public class PostService implements IPostService {
                 .author(postRequest.getAuthor())
                 .status(postRequest.getStatus())
                 .category(postRequest.getCategory())
-                .comments(postRequest.getComments())
+                .commentIds(postRequest.getCommentIds())
                 .reviewIds(postRequest.getReviewIds())
                 .build();
         postRepository.save(post);
@@ -92,7 +102,16 @@ public class PostService implements IPostService {
             reviews = Collections.emptyList();
         }
 
-        logger.info("Found reviews for post {}: {}", postId, reviews);
+        List<CommentResponse> comments;
+        try {
+            comments = commentClient.getCommentsByPostId(postId);
+        } catch (FeignException.NotFound e) {
+            logger.warn("No comments found for post {}", postId);
+            comments = Collections.emptyList();
+        } catch (FeignException e) {
+            logger.error("Error fetching comments for post {}: {}", postId, e.getMessage());
+            comments = Collections.emptyList();
+        }
 
         return new PostResponse(
                 post.getId(),
@@ -102,7 +121,7 @@ public class PostService implements IPostService {
                 post.getAuthor(),
                 post.getStatus(),
                 post.getCategory(),
-                post.getComments(),
+                comments,
                 reviews,
                 post.getCreatedDate()
         );
@@ -119,7 +138,7 @@ public class PostService implements IPostService {
         post.setAuthor(postRequest.getAuthor());
         post.setStatus(postRequest.getStatus());
         post.setCategory(postRequest.getCategory());
-        post.setComments(postRequest.getComments());
+        post.setCommentIds(postRequest.getCommentIds());
         post.setReviewIds(postRequest.getReviewIds());
 
         postRepository.save(post);
@@ -167,6 +186,40 @@ public class PostService implements IPostService {
         String notificationText = String.format(
                 "New review status: %s --- Title: '%s'",
                 reviewMessage.getReviewStatus(),
+                post.getTitle()
+        );
+
+        NotificationRequest notificationRequest = NotificationRequest.builder()
+                .text(notificationText)
+                .subject("JavaProject")
+                .to("ozkanhalim3600@gmail.com")
+                .build();
+
+        try {
+            notificationClient.sendNotification(notificationRequest);
+
+            logger.info("Email sent successfully to: " + notificationRequest.getTo());
+        } catch (Exception e) {
+            logger.error("Failed to send email: " + e.getMessage(), e);
+        }
+    }
+
+    @Transactional
+    public void updateCommentPost(CommentMessage commentMessage) {
+
+        Post post = postRepository.findById(commentMessage.getPostId())
+                .orElseThrow(() -> new NotFoundException("No post with id [" + commentMessage.getPostId() + "]"));
+
+        if (post.getCommentIds() == null) {
+            post.setCommentIds(new ArrayList<>());
+        }
+
+        post.getCommentIds().add(commentMessage.getId());
+        postRepository.save(post);
+
+        String notificationText = String.format(
+                "New comment: %s --- Title: '%s'",
+                commentMessage.getComment(),
                 post.getTitle()
         );
 

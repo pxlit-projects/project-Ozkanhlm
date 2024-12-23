@@ -18,8 +18,9 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(columnDefinition = "LONGTEXT")
+    private String comment;
+
     @Column(name="post_id")
     private Long postId;
-
-    private String note;
 }

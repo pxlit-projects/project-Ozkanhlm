@@ -38,8 +38,10 @@ public class Post {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Transient
-    private List<Comment> comments;
+//    @Transient
+//    private List<Comment> comments;
+    @ElementCollection
+    private List<Long> commentIds;
 
 //    @Transient
 //    private List<Review> reviews;

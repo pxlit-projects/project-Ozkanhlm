@@ -13,10 +13,6 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfig {
 
     @Bean
-    public Queue postReviewQueue(){
-        return new Queue("postReviewQueue");
-    }
-    @Bean
     public Queue postCommentQueue(){
         return new Queue("postCommentQueue");
     }

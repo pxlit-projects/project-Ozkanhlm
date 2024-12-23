@@ -86,6 +86,12 @@ spring:
             - Path=/review/**
           filters:
             - RewritePath=/review/(?<path>.*), /$\{path}
+        - id: comment-service
+          uri: lb://comment-service
+          predicates:
+            - Path=/comment/**
+          filters:
+            - RewritePath=/comment/(?<path>.*), /$\{path}
         - id: notification-service
           uri: lb://notification-service
           predicates:

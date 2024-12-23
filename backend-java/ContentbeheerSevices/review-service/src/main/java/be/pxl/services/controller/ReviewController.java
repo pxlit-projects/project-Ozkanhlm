@@ -43,7 +43,6 @@ public class ReviewController {
             }
             return new ResponseEntity<>("Review added successfully", HttpStatus.OK);
         } catch (Exception e) {
-            // If any error occurs in saving the review
             return new ResponseEntity<>("Failed to save review: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -61,8 +61,9 @@ public class ReviewService implements IReviewService {
     @Override
     public void deleteReviewsByPostId(Long postId) {
         List<Review> reviews = reviewRepository.findAllByPostId(postId);
-        for (Review review : reviews) {
-            reviewRepository.delete(review);
-        }
+//        for (Review review : reviews) {
+//            reviewRepository.delete(review);
+//        }
+        reviewRepository.deleteAll(reviews);
     }
 }

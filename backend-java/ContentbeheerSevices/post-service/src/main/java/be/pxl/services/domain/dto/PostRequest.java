@@ -22,6 +22,6 @@ public class PostRequest {
     private String author;
     private Status status;
     private Category category;
-    private List<Comment> comments;
+    private List<Long> commentIds;
     private List<Long> reviewIds;
 }

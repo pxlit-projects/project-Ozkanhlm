@@ -1,4 +1,4 @@
-package be.pxl.services.domain;
+package be.pxl.services.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,12 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class NotificationRequest {
-    private String message;
-    private String sender;
+public class CommentMessage {
+    private Long id;
+    private String comment;
+    private Long postId;
 }
-
-
-
-
-

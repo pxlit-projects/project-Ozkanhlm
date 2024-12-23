@@ -1,4 +1,5 @@
 package be.pxl.services.services;
+import be.pxl.services.domain.dto.CommentMessage;
 import be.pxl.services.domain.dto.PostRequest;
 import be.pxl.services.domain.dto.PostResponse;
 import be.pxl.services.domain.dto.ReviewMessage;
@@ -14,4 +15,6 @@ public interface IPostService {
     List<String> getCategories();
     List<String> getStatuses();
     void updateReviewPost(ReviewMessage reviewMessage);
+
+    void updateCommentPost(CommentMessage commentMessage);
 }
