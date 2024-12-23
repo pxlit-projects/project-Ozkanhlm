@@ -3,7 +3,6 @@ package be.pxl.services.services;
 import be.pxl.services.client.NotificationClient;
 import be.pxl.services.client.ReviewClient;
 import be.pxl.services.domain.Category;
-import be.pxl.services.domain.Review;
 import be.pxl.services.domain.dto.*;
 import be.pxl.services.domain.Post;
 import be.pxl.services.domain.Status;
@@ -16,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -39,7 +37,14 @@ public class PostService implements IPostService {
     }
 
     private PostResponse mapToPostResponse(Post post) {
-        List<ReviewResponse> reviews = reviewClient.getReviewsByPostId(post.getId());
+
+        List<ReviewResponse> reviews;
+        try {
+            reviews = reviewClient.getReviewsByPostId(post.getId());
+        } catch (Exception e) {
+            logger.error("Error fetching reviews for post {}: {}", post.getId(), e.getMessage());
+            reviews = Collections.emptyList();
+        }
 
         return PostResponse.builder()
                 .id(post.getId())
@@ -69,15 +74,6 @@ public class PostService implements IPostService {
                 .reviewIds(postRequest.getReviewIds())
                 .build();
         postRepository.save(post);
-
-
-        NotificationRequest notificationRequest = NotificationRequest.builder()
-                .text("A new post has been created!")
-                .subject("JavaProject")
-                .to("ozkanhalim3600@gmail.com")
-                .build();
-
-        notificationClient.sendNotification(notificationRequest);
     }
 
     @Override
@@ -161,14 +157,25 @@ public class PostService implements IPostService {
         Post post = postRepository.findById(reviewMessage.getPostId())
                 .orElseThrow(() -> new NotFoundException("No post with id [" + reviewMessage.getPostId() + "]"));
 
-
-        System.out.println("Post found: " + post);
-
         if (post.getReviewIds() == null) {
             post.setReviewIds(new ArrayList<>());
         }
 
         post.getReviewIds().add(reviewMessage.getId());
         postRepository.save(post);
+
+        String notificationText = String.format(
+                "New review status: %s --- Title: '%s'",
+                reviewMessage.getReviewStatus(),
+                post.getTitle()
+        );
+
+        NotificationRequest notificationRequest = NotificationRequest.builder()
+                .text(notificationText)
+                .subject("JavaProject")
+                .to("ozkanhalim3600@gmail.com")
+                .build();
+
+        notificationClient.sendNotification(notificationRequest);
     }
 }

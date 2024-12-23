@@ -1,7 +1,5 @@
 package be.pxl.services.services;
 
-import be.pxl.services.client.NotificationClient;
-import be.pxl.services.domain.NotificationRequest;
 import be.pxl.services.domain.Review;
 import be.pxl.services.domain.dto.ReviewRequest;
 import be.pxl.services.domain.dto.ReviewResponse;
@@ -19,7 +17,6 @@ import java.util.stream.Collectors;
 public class ReviewService implements IReviewService {
 
     private final ReviewRepository reviewRepository;
-//    private final NotificationClient notificationClient;
 
     private static final Logger logger = LoggerFactory.getLogger(ReviewService.class);
     @Override
@@ -46,14 +43,6 @@ public class ReviewService implements IReviewService {
                 .build();
 
         reviewRepository.save(review);
-        System.out.println("Review saved with ID: " + review.getId());
-
-//        NotificationRequest notificationRequest = NotificationRequest.builder()
-//                .message("Review Created")
-//                .sender("Ozkan")
-//                .build();
-//        notificationClient.sendNotification(notificationRequest);
-
         return true;
     }
 
@@ -66,6 +55,7 @@ public class ReviewService implements IReviewService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public void deleteReviewsByPostId(Long postId) {
         List<Review> reviews = reviewRepository.findAllByPostId(postId);
         for (Review review : reviews) {

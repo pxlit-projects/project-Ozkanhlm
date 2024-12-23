@@ -13,8 +13,6 @@ public class ReviewMessageConsumer {
 
     @RabbitListener(queues = "postReviewQueue")
     public void consumerMessage(ReviewMessage reviewMessage){
-
-        System.out.println("Received review message: " + reviewMessage);
         postService.updateReviewPost(reviewMessage);
     }
 }

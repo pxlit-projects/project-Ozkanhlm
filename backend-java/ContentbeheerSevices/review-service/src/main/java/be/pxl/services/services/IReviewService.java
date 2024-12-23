@@ -10,6 +10,5 @@ public interface IReviewService {
     List<ReviewResponse> getAllReviews();
     boolean addReview(ReviewRequest postRequest);
     List<ReviewResponse> getReviewsByPostId(Long postId);
-
     void deleteReviewsByPostId(Long postId);
 }

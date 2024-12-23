@@ -65,8 +65,16 @@ export class PostDetailComponent {
     this.post$.subscribe({
       next: (post) => {
         if (post) {
-          console.log('Post details ontvangen:', post.reviews);
           this.postForm.patchValue(post);
+
+          if (post.reviews && post.reviews.length > 0) {
+            const lastReview = post.reviews[post.reviews.length - 1];
+            if (lastReview.reviewStatus === 'REJECTED') {
+              this.statuses = this.statuses.filter(
+                (status: string) => status !== 'PUBLISH'
+              );
+            }
+          }
         }
       },
       error: () => this.router.navigate(['/no-page']),
@@ -86,15 +94,12 @@ export class PostDetailComponent {
   }
 
   onSubmit(): void {
-    if (this.postForm.valid) {
-      this.updatePost();
-    } else {
+    if (!this.postForm.valid) {
       console.warn('Form is not valid');
     }
-  }
 
-  private updatePost(): void {
     const updatedPost: Post = this.postForm.value;
+
     this.postService.updatePost(this.id, updatedPost).subscribe({
       next: () => this.router.navigate(['/posts']),
       error: (err) => console.error('Error updating post:', err),
@@ -110,14 +115,6 @@ export class PostDetailComponent {
     }
   }
 
-  onStatusChange(status: string): void {
-    if (status === 'REJECTED') {
-      this.isRejected = true;
-    } else {
-      this.isRejected = false;
-    }
-  }
-
   onSubmitReview(): void {
     if (!this.reviewForm.valid) {
       console.warn('Review form is not valid');
@@ -127,17 +124,17 @@ export class PostDetailComponent {
     const reviewData: Review = this.reviewForm.value;
     reviewData.postId = this.id;
 
-    if (reviewData.reviewStatus === 'APPROVED') {
-      this.postForm.patchValue({ status: 'PUBLISH' });
-      this.updatePost();
-    }
-
-    this.addReview(reviewData);
-  }
-  private addReview(reviewData: Review): void {
     this.reviewService.addReview(reviewData).subscribe({
-      next: () => this.router.navigate(['/posts']),
+      next: () => this.router.navigate(['/workbanch']),
       error: (err) => console.error('Error adding review:', err),
     });
+  }
+
+  onStatusChange(status: string): void {
+    if (status === 'REJECTED') {
+      this.isRejected = true;
+    } else {
+      this.isRejected = false;
+    }
   }
 }
