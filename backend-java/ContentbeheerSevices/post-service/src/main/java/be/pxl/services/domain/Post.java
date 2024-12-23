@@ -42,7 +42,7 @@ public class Post {
     private List<Comment> comments;
 
 //    @Transient
-//    private Review review;
+//    private List<Review> reviews;
     @ElementCollection
     private List<Long> reviewIds;
 

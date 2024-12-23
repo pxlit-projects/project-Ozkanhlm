@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IReviewService {
     List<ReviewResponse> getAllReviews();
-    boolean addReview(ReviewRequest postRequest);
+    void addReview(ReviewRequest postRequest);
     List<ReviewResponse> getReviewsByPostId(Long postId);
     void deleteReviewsByPostId(Long postId);
 }

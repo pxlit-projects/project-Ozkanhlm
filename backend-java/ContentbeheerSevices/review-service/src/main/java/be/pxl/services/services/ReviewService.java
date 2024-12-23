@@ -35,15 +35,18 @@ public class ReviewService implements IReviewService {
     }
 
     @Override
-    public boolean addReview(ReviewRequest reviewRequest) {
+    public void  addReview(ReviewRequest reviewRequest) {
         Review review = Review.builder()
                 .reviewMessage(reviewRequest.getReviewMessage())
                 .reviewStatus(reviewRequest.getReviewStatus())
                 .postId(reviewRequest.getPostId())
                 .build();
 
-        reviewRepository.save(review);
-        return true;
+        try {
+            reviewRepository.save(review);
+        } catch (Exception e) {
+            throw new RuntimeException("Error saving review: " + e.getMessage(), e);
+        }
     }
 
     @Override

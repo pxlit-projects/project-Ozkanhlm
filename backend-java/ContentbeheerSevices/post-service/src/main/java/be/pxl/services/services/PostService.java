@@ -176,6 +176,12 @@ public class PostService implements IPostService {
                 .to("ozkanhalim3600@gmail.com")
                 .build();
 
-        notificationClient.sendNotification(notificationRequest);
+        try {
+            notificationClient.sendNotification(notificationRequest);
+
+            logger.info("Email sent successfully to: " + notificationRequest.getTo());
+        } catch (Exception e) {
+            logger.error("Failed to send email: " + e.getMessage(), e);
+        }
     }
 }

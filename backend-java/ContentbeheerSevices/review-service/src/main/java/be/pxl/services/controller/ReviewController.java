@@ -33,18 +33,18 @@ public class ReviewController {
 
     @PostMapping()
     public ResponseEntity<String> addReview(@RequestBody ReviewRequest reviewRequest) {
-        boolean isReviewSaved = reviewService.addReview(reviewRequest);
-
-        if (isReviewSaved) {
+        try {
+            reviewService.addReview(reviewRequest);
             try {
                 reviewMessageProducer.sendMessage(reviewRequest);
             } catch (Exception e) {
                 return new ResponseEntity<>("Review saved, but failed to send message to RabbitMQ: " + e.getMessage(),
                         HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            return new ResponseEntity<>("Post added successfully", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Post not saved", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Review added successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            // If any error occurs in saving the review
+            return new ResponseEntity<>("Failed to save review: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
