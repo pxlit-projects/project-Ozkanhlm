@@ -13,10 +13,11 @@ import {
 } from '@angular/forms';
 import { RoleService } from '../../../shared/services/role.service';
 import { Review } from '../../../shared/models/review.model';
+import { NoPageComponent } from '../../no-page/no-page.component';
 @Component({
   selector: 'app-post-detail',
   standalone: true,
-  imports: [AsyncPipe, ReactiveFormsModule, DatePipe],
+  imports: [AsyncPipe, ReactiveFormsModule, DatePipe, NoPageComponent],
   templateUrl: './post-detail.component.html',
   styleUrl: './post-detail.component.css',
 })
