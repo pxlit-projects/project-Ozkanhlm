@@ -19,7 +19,7 @@ public class CommentService implements ICommentService {
     @Override
     public List<CommentResponse> getAllComments() {
          List<Comment> comments = commentRepository.findAll();
-         return comments.stream().map(comment -> mapToCommentResponse(comment)).toList();
+         return comments.stream().map(this::mapToCommentResponse).toList();
     }
 
     private CommentResponse mapToCommentResponse(Comment comment) {
@@ -31,14 +31,17 @@ public class CommentService implements ICommentService {
     }
 
     @Override
-    public void addComment(CommentRequest commentRequest) {
+    public CommentResponse addComment(CommentRequest commentRequest) {
         Comment comment = Comment.builder()
                 .comment(commentRequest.getComment())
                 .postId(commentRequest.getPostId())
                 .build();
-        try {
-            commentRepository.save(comment);
-        } catch (Exception e) {
+
+          try {
+              Comment savedComment = commentRepository.save(comment);
+              return mapToCommentResponse(savedComment);
+
+          } catch (Exception e) {
             throw new RuntimeException("Error saving comment: " + e.getMessage(), e);
         }
     }

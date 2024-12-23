@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../../../shared/services/post.service';
 import { Post } from '../../../shared/models/post.model';
+import { BehaviorSubject } from 'rxjs';
+
 import {
   FormBuilder,
   FormGroup,
@@ -14,6 +16,8 @@ import {
 import { RoleService } from '../../../shared/services/role.service';
 import { Review } from '../../../shared/models/review.model';
 import { NoPageComponent } from '../../no-page/no-page.component';
+import { CommentService } from '../../../shared/services/comment.service';
+import { Comment } from '../../../shared/models/comment.model';
 @Component({
   selector: 'app-post-detail',
   standalone: true,
@@ -32,11 +36,15 @@ export class PostDetailComponent {
   fb: FormBuilder = inject(FormBuilder);
   postService: PostService = inject(PostService);
   reviewService: ReviewService = inject(ReviewService);
+  commentService: CommentService = inject(CommentService);
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
 
   id: number = this.route.snapshot.params['id'];
   post$: Observable<Post> = this.postService.getPost(this.id);
+
+  commentsSubject = new BehaviorSubject<Comment[]>([]);
+  comments$ = this.commentsSubject.asObservable();
 
   postForm: FormGroup = this.fb.group({
     title: ['', Validators.required],
@@ -50,6 +58,10 @@ export class PostDetailComponent {
   reviewForm: FormGroup = this.fb.group({
     reviewStatus: ['', Validators.required],
     reviewMessage: [''],
+  });
+
+  commentForm: FormGroup = this.fb.group({
+    comment: ['', Validators.required],
   });
 
   ngOnInit(): void {
@@ -66,6 +78,7 @@ export class PostDetailComponent {
     this.post$.subscribe({
       next: (post) => {
         if (post) {
+          this.commentsSubject.next(post.comments || []);
           this.postForm.patchValue(post);
 
           if (post.reviews && post.reviews.length > 0) {
@@ -137,5 +150,24 @@ export class PostDetailComponent {
     } else {
       this.isRejected = false;
     }
+  }
+
+  onSubmitComment() {
+    if (!this.commentForm.valid) {
+      console.warn('Comment form is not valid');
+      return;
+    }
+
+    const commentData: Comment = this.commentForm.value;
+    commentData.postId = this.id;
+
+    this.commentService.addComment(commentData).subscribe({
+      next: (newComment) => {
+        const currentComments = this.commentsSubject.value;
+        this.commentsSubject.next([...currentComments, newComment]);
+        this.commentForm.reset();
+      },
+      error: (err) => console.error('Error adding comment:', err),
+    });
   }
 }

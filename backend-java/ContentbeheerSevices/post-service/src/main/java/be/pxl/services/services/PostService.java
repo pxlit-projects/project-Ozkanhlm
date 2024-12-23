@@ -151,7 +151,12 @@ public class PostService implements IPostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("No post with id [" + postId + "]"));
 
-        reviewClient.deleteReviewsByPostId(postId);
+        if (!post.getReviewIds().isEmpty()){
+            reviewClient.deleteReviewsByPostId(postId);
+        }
+        if (!post.getCommentIds().isEmpty()){
+            commentClient.deleteCommentsByPostId(postId);
+        }
 
         postRepository.delete(post);
     }

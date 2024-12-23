@@ -12,8 +12,6 @@ export class CommentService {
   http: HttpClient = inject(HttpClient);
 
   addComment(comment: Comment): Observable<Comment> {
-    return this.http.post<Comment>(this.api, comment, {
-      responseType: 'text' as 'json',
-    });
+    return this.http.post<Comment>(this.api, comment);
   }
 }

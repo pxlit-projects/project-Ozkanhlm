@@ -31,18 +31,17 @@ public class CommentController {
     }
 
     @PostMapping()
-    public ResponseEntity<String> addComment(@RequestBody CommentRequest commentRequest) {
+    public ResponseEntity<CommentResponse> addComment(@RequestBody CommentRequest commentRequest) {
         try {
-            commentService.addComment(commentRequest);
+            CommentResponse savedComment = commentService.addComment(commentRequest);
             try {
                 commentMessageProducer.sendMessage(commentRequest);
             } catch (Exception e) {
-                return new ResponseEntity<>("Comment saved, but failed to send message to RabbitMQ: " + e.getMessage(),
-                        HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>( savedComment,HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            return new ResponseEntity<>("Comment added successfully", HttpStatus.OK);
+            return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Failed to save comment: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
