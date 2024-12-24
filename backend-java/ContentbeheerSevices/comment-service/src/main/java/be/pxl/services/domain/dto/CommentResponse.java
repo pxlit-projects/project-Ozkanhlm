@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CommentResponse {
     private Long id;
+    private String user;
     private String comment;
     private Long postId;
 }

@@ -26,6 +26,7 @@ import { Comment } from '../../../shared/models/comment.model';
   styleUrl: './post-detail.component.css',
 })
 export class PostDetailComponent {
+  editingCommentId: number | null = null;
   isRejected: boolean = false;
   roleService: RoleService = inject(RoleService);
   role = this.roleService.getRole();
@@ -61,6 +62,7 @@ export class PostDetailComponent {
   });
 
   commentForm: FormGroup = this.fb.group({
+    // user: [this.roleService.getUser(), Validators.required],
     comment: ['', Validators.required],
   });
 
@@ -121,7 +123,7 @@ export class PostDetailComponent {
   }
 
   deletePost(): void {
-    if (confirm('Are you sure you want to delete this post?')) {
+    if (confirm('Are you sure you want to delete this Post?')) {
       this.postService.deletePost(this.id).subscribe({
         next: () => this.router.navigate(['/posts']),
         error: (err) => console.error('Error deleting post:', err),
@@ -153,6 +155,8 @@ export class PostDetailComponent {
   }
 
   onSubmitComment() {
+    console.log('Comment form:', this.commentForm.value);
+    console.log('Editing comment ID:', this.editingCommentId);
     if (!this.commentForm.valid) {
       console.warn('Comment form is not valid');
       return;
@@ -160,14 +164,56 @@ export class PostDetailComponent {
 
     const commentData: Comment = this.commentForm.value;
     commentData.postId = this.id;
+    commentData.user = this.roleService.getUser() || '';
+    console.log('commentData', commentData);
 
-    this.commentService.addComment(commentData).subscribe({
-      next: (newComment) => {
-        const currentComments = this.commentsSubject.value;
-        this.commentsSubject.next([...currentComments, newComment]);
-        this.commentForm.reset();
-      },
-      error: (err) => console.error('Error adding comment:', err),
-    });
+    if (this.editingCommentId) {
+      this.commentService
+        .updateComment(this.editingCommentId, commentData)
+        .subscribe({
+          next: (updatedComment) => {
+            console.log('Updating comment in BehaviorSubject:', updatedComment);
+            const currentComments = this.commentsSubject.value.map((comment) =>
+              comment.id === this.editingCommentId ? updatedComment : comment
+            );
+            this.commentsSubject.next(currentComments);
+            this.commentForm.reset();
+            this.editingCommentId = null;
+          },
+          error: (err) => console.error('Error updating comment:', err),
+        });
+    } else {
+      this.commentService.addComment(commentData).subscribe({
+        next: (newComment) => {
+          const currentComments = this.commentsSubject.value;
+          this.commentsSubject.next([...currentComments, newComment]);
+          this.commentForm.reset();
+        },
+        error: (err) => console.error('Error adding comment:', err),
+      });
+    }
+  }
+
+  editComment(comment: Comment): void {
+    if (comment.user === this.roleService.getUser()) {
+      this.editingCommentId = comment.id;
+      this.commentForm.patchValue({
+        comment: comment.comment,
+      });
+    }
+  }
+
+  deleteComment(commentId: number): void {
+    if (confirm('Are you sure you want to delete this comment?')) {
+      this.commentService.deleteComment(commentId).subscribe({
+        next: () => {
+          const updatedComments = this.commentsSubject.value.filter(
+            (comment) => comment.id !== commentId
+          );
+          this.commentsSubject.next(updatedComments);
+        },
+        error: (err) => console.error('Error deleting comment:', err),
+      });
+    }
   }
 }

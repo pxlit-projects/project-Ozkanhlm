@@ -27,9 +27,8 @@ export class PostService {
     return this.http.get<Post>(`${this.api}/${id}`);
   }
 
-  // CHEK OF DIT WERKT VOID veranderd naar POST
-  deletePost(id: number): Observable<Post> {
-    return this.http.delete<Post>(`${this.api}/${id}`);
+  deletePost(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.api}/${id}`);
   }
 
   getCategories(): Observable<string[]> {

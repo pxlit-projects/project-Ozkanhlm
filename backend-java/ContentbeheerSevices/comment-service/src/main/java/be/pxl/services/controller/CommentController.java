@@ -1,5 +1,6 @@
 package be.pxl.services.controller;
 
+import be.pxl.services.domain.Comment;
 import be.pxl.services.domain.dto.CommentRequest;
 import be.pxl.services.domain.dto.CommentResponse;
 import be.pxl.services.messaging.CommentMessageProducer;
@@ -49,5 +50,25 @@ public class CommentController {
     public ResponseEntity<Void> deleteCommentByPostId(@PathVariable Long postId) {
         commentService.deleteCommentsByPostId(postId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/{commentId}")
+    public ResponseEntity<CommentResponse> updateComment(@PathVariable Long commentId, @RequestBody CommentRequest commentRequest) {
+        try {
+            CommentResponse updatedComment = commentService.updateComment(commentId, commentRequest);
+            return new ResponseEntity<>(updatedComment, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<Void> deleteComment(@PathVariable Long commentId) {
+        try {
+            commentService.deleteCommentById(commentId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

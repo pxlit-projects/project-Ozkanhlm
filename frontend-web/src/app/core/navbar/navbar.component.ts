@@ -23,6 +23,7 @@ export class NavbarComponent {
 
   logout(): void {
     this.roleService.setRole(null);
+    this.roleService.setUser(null);
     this.router.navigate(['/login']);
   }
 }

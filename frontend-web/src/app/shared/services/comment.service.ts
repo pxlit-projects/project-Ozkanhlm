@@ -14,4 +14,16 @@ export class CommentService {
   addComment(comment: Comment): Observable<Comment> {
     return this.http.post<Comment>(this.api, comment);
   }
+
+  updateComment(
+    commentId: number,
+    updatedComment: Comment
+  ): Observable<Comment> {
+    console.log('Update comment data:', updatedComment);
+    return this.http.put<Comment>(`${this.api}/${commentId}`, updatedComment);
+  }
+
+  deleteComment(commentId: number): Observable<void> {
+    return this.http.delete<void>(`${this.api}/${commentId}`);
+  }
 }

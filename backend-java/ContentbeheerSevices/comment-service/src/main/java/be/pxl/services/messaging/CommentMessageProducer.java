@@ -15,6 +15,7 @@ public class CommentMessageProducer {
         try {
             CommentMessage commentMessage = CommentMessage.builder()
                     .id(commentRequest.getId())
+                    .user(commentRequest.getUser())
                     .comment(commentRequest.getComment())
                     .postId(commentRequest.getPostId())
                     .build();

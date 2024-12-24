@@ -151,14 +151,26 @@ public class PostService implements IPostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("No post with id [" + postId + "]"));
 
-        if (!post.getReviewIds().isEmpty()){
+        try {
             reviewClient.deleteReviewsByPostId(postId);
-        }
-        if (!post.getCommentIds().isEmpty()){
-            commentClient.deleteCommentsByPostId(postId);
+            logger.info("Successfully deleted reviews for postId [{}].", postId);
+        } catch (Exception e) {
+            logger.error("Failed to delete reviews for postId [{}]: {}", postId, e.getMessage(), e);
         }
 
-        postRepository.delete(post);
+        try {
+            commentClient.deleteCommentsByPostId(postId);
+            logger.info("Successfully deleted comments for postId [{}].", postId);
+        } catch (Exception e) {
+            logger.error("Failed to delete comments for postId [{}]: {}", postId, e.getMessage(), e);
+        }
+
+        try {
+            postRepository.delete(post);
+            logger.info("Post with id [{}] deleted successfully.", postId);
+        } catch (Exception e) {
+            logger.error("Failed to delete post with id [{}]: {}", postId, e.getMessage(), e);
+        }
     }
 
     @Override
@@ -177,9 +189,10 @@ public class PostService implements IPostService {
 
     @Transactional
     public void updateReviewPost(ReviewMessage reviewMessage) {
-
         Post post = postRepository.findById(reviewMessage.getPostId())
                 .orElseThrow(() -> new NotFoundException("No post with id [" + reviewMessage.getPostId() + "]"));
+
+        logger.info("ReviewMessage :{}", reviewMessage);
 
         if (post.getReviewIds() == null) {
             post.setReviewIds(new ArrayList<>());
@@ -218,6 +231,7 @@ public class PostService implements IPostService {
         if (post.getCommentIds() == null) {
             post.setCommentIds(new ArrayList<>());
         }
+
 
         post.getCommentIds().add(commentMessage.getId());
         postRepository.save(post);

@@ -35,6 +35,7 @@ export class LoginComponent {
 
     if (user) {
       this.roleService.setRole(user.role);
+      this.roleService.setUser(user.username);
       this.router.navigate(['/posts']);
     } else {
       console.error('Invalid username or password');

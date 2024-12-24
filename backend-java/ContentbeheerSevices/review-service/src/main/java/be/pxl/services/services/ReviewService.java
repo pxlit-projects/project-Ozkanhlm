@@ -43,7 +43,8 @@ public class ReviewService implements IReviewService {
                 .build();
 
         try {
-            reviewRepository.save(review);
+            Review savedReview = reviewRepository.save(review);
+            reviewRequest.setId(savedReview.getId());
         } catch (Exception e) {
             throw new RuntimeException("Error saving review: " + e.getMessage(), e);
         }
@@ -61,9 +62,6 @@ public class ReviewService implements IReviewService {
     @Override
     public void deleteReviewsByPostId(Long postId) {
         List<Review> reviews = reviewRepository.findAllByPostId(postId);
-//        for (Review review : reviews) {
-//            reviewRepository.delete(review);
-//        }
         reviewRepository.deleteAll(reviews);
     }
 }
