@@ -35,6 +35,7 @@ public class PostService implements IPostService {
     @Override
     public List<PostResponse> getAllPosts() {
          List<Post> posts = postRepository.findAll();
+         logger.info("Get all Posts: {}",posts);
          return posts.stream().map(this::mapToPostResponse).toList();
     }
 

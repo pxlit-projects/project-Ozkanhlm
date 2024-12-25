@@ -13,11 +13,11 @@ public class ReviewMessageConsumer {
     private final IPostService postService;
 
     @RabbitListener(queues = "postReviewQueue")
-    public void consumerMessage(ReviewMessage reviewMessage){
+    public void consumerMessageReview(ReviewMessage reviewMessage){
         postService.updateReviewPost(reviewMessage);
     }
     @RabbitListener(queues = "postCommentQueue")
-    public void consumerMessage(CommentMessage commentMessage){
+    public void consumerMessageComment(CommentMessage commentMessage){
         postService.updateCommentPost(commentMessage);
     }
 }

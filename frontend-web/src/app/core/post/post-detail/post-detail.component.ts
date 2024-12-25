@@ -155,8 +155,6 @@ export class PostDetailComponent {
   }
 
   onSubmitComment() {
-    console.log('Comment form:', this.commentForm.value);
-    console.log('Editing comment ID:', this.editingCommentId);
     if (!this.commentForm.valid) {
       console.warn('Comment form is not valid');
       return;
@@ -165,14 +163,12 @@ export class PostDetailComponent {
     const commentData: Comment = this.commentForm.value;
     commentData.postId = this.id;
     commentData.user = this.roleService.getUser() || '';
-    console.log('commentData', commentData);
 
     if (this.editingCommentId) {
       this.commentService
         .updateComment(this.editingCommentId, commentData)
         .subscribe({
           next: (updatedComment) => {
-            console.log('Updating comment in BehaviorSubject:', updatedComment);
             const currentComments = this.commentsSubject.value.map((comment) =>
               comment.id === this.editingCommentId ? updatedComment : comment
             );

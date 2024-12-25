@@ -5,6 +5,8 @@ import be.pxl.services.domain.dto.CommentRequest;
 import be.pxl.services.domain.dto.CommentResponse;
 import be.pxl.services.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 public class CommentService implements ICommentService {
 
     private final CommentRepository commentRepository;
+    private static final Logger logger = LoggerFactory.getLogger(CommentService.class);
 
     @Override
     public List<CommentResponse> getAllComments() {
@@ -43,6 +46,7 @@ public class CommentService implements ICommentService {
           try {
               Comment savedComment = commentRepository.save(comment);
               commentRequest.setId(savedComment.getId());
+              logger.info("Added Comment: {}", savedComment);
               return mapToCommentResponse(savedComment);
 
           } catch (Exception e) {
