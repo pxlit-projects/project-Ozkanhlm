@@ -3,7 +3,9 @@ package be.pxl.services.services;
 import be.pxl.services.domain.Comment;
 import be.pxl.services.domain.dto.CommentRequest;
 import be.pxl.services.domain.dto.CommentResponse;
+import be.pxl.services.messaging.CommentMessageProducer;
 import be.pxl.services.repository.CommentRepository;
+import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +21,7 @@ public class CommentService implements ICommentService {
 
     private final CommentRepository commentRepository;
     private static final Logger logger = LoggerFactory.getLogger(CommentService.class);
-
+    private final CommentMessageProducer commentMessageProducer;
     @Override
     public List<CommentResponse> getAllComments() {
          List<Comment> comments = commentRepository.findAll();
@@ -47,17 +49,36 @@ public class CommentService implements ICommentService {
               Comment savedComment = commentRepository.save(comment);
               commentRequest.setId(savedComment.getId());
               logger.info("Added Comment: {}", savedComment);
+
+              try {
+                  commentMessageProducer.sendMessage(commentRequest);
+              } catch (Exception e) {
+                  logger.error("Error sending message for comment: {}", e.getMessage(), e);
+                  throw new RuntimeException("Error sending message for comment: " + e.getMessage(), e);
+              }
+
               return mapToCommentResponse(savedComment);
 
           } catch (Exception e) {
-            throw new RuntimeException("Error saving comment: " + e.getMessage(), e);
+              logger.error("Error saving comment: {}", e.getMessage(), e);
+              throw new RuntimeException("Error saving comment: " + e.getMessage(), e);
         }
     }
 
+    private List<Comment> getCommentsOrThrow(Long postId) {
+        List<Comment> comments = commentRepository.findAllByPostId(postId);
+
+        if (comments.isEmpty()) {
+            throw new NotFoundException("No comments found for postId: " + postId);
+        }
+
+        return comments;
+    }
     @Override
     public List<CommentResponse> getCommentsByPostId(Long postId) {
 
-        List<Comment> comments = commentRepository.findAllByPostId(postId);
+        List<Comment> comments = getCommentsOrThrow(postId);
+
         return comments.stream()
                 .map(this::mapToCommentResponse)
                 .collect(Collectors.toList());
@@ -65,26 +86,39 @@ public class CommentService implements ICommentService {
 
     @Override
     public void deleteCommentsByPostId(Long postId) {
-        List<Comment> comments = commentRepository.findAllByPostId(postId);
-        commentRepository.deleteAll(comments);
+        try {
+            List<Comment> comments = getCommentsOrThrow(postId);
+
+            commentRepository.deleteAll(comments);
+        } catch (Exception e) {
+            logger.error("Error deleting comments for postId {}: {}", postId, e.getMessage(), e);
+            throw new RuntimeException("Error deleting comments for postId " + postId, e);
+        }
     }
 
     @Override
     public CommentResponse updateComment(Long commentId, CommentRequest commentRequest) {
-        Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new ExpressionException("Comment not found"));
-
-
-        comment.setComment(commentRequest.getComment());
-        Comment updatedComment = commentRepository.save(comment);
-
-        return mapToCommentResponse(updatedComment);
+        try {
+            Comment comment = commentRepository.findById(commentId)
+                    .orElseThrow(() -> new RuntimeException("Comment not found"));
+            comment.setComment(commentRequest.getComment());
+            Comment updatedComment = commentRepository.save(comment);
+            return mapToCommentResponse(updatedComment);
+        } catch (Exception e) {
+            logger.error("Error updating comment with id {}: {}", commentId, e.getMessage(), e);
+            throw new RuntimeException("Error updating comment", e);
+        }
     }
 
     @Override
     public void deleteCommentById(Long commentId) {
-        Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new RuntimeException("Comment not found with id: " + commentId));
-        commentRepository.delete(comment);
+        try {
+            Comment comment = commentRepository.findById(commentId)
+                    .orElseThrow(() -> new RuntimeException("Comment not found with id: " + commentId));
+            commentRepository.delete(comment);
+        } catch (Exception e) {
+            logger.error("Error deleting comment with id {}: {}", commentId, e.getMessage(), e);
+            throw new RuntimeException("Error deleting comment", e);
+        }
     }
 }

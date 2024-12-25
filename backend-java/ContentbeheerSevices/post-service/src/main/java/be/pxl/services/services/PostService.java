@@ -64,7 +64,7 @@ public class PostService implements IPostService {
         } catch (FeignException.NotFound e) {
             logger.warn("No reviews found for post {}", postId);
         } catch (Exception e) {
-            logger.error("Error fetching reviews for post {}: {}", postId, e.getMessage(), e);
+            logger.error("Error fetching reviews for post {}", postId);
         }
         return Collections.emptyList();
     }
@@ -75,7 +75,7 @@ public class PostService implements IPostService {
         } catch (FeignException.NotFound e) {
             logger.warn("No comments found for post {}", postId);
         } catch (Exception e) {
-            logger.error("Error fetching comments for post {}: {}", postId, e.getMessage(), e);
+            logger.error("Error fetching comments for post {}: ", postId);
         }
         return Collections.emptyList();
     }

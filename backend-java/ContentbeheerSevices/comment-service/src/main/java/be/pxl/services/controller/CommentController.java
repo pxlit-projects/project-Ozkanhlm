@@ -33,17 +33,8 @@ public class CommentController {
 
     @PostMapping()
     public ResponseEntity<CommentResponse> addComment(@RequestBody CommentRequest commentRequest) {
-        try {
-            CommentResponse savedComment = commentService.addComment(commentRequest);
-            try {
-                commentMessageProducer.sendMessage(commentRequest);
-            } catch (Exception e) {
-                return new ResponseEntity<>( savedComment,HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-            return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        CommentResponse savedComment = commentService.addComment(commentRequest);
+        return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/post/{postId}")
@@ -54,21 +45,13 @@ public class CommentController {
 
     @PutMapping("/{commentId}")
     public ResponseEntity<CommentResponse> updateComment(@PathVariable Long commentId, @RequestBody CommentRequest commentRequest) {
-        try {
-            CommentResponse updatedComment = commentService.updateComment(commentId, commentRequest);
-            return new ResponseEntity<>(updatedComment, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        CommentResponse updatedComment = commentService.updateComment(commentId, commentRequest);
+        return new ResponseEntity<>(updatedComment, HttpStatus.OK);
     }
 
     @DeleteMapping("/{commentId}")
     public ResponseEntity<Void> deleteComment(@PathVariable Long commentId) {
-        try {
-            commentService.deleteCommentById(commentId);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        commentService.deleteCommentById(commentId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
