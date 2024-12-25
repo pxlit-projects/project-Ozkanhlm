@@ -8,3 +8,7 @@
 2024-12-25T16:57:58.006+0100 INFO               [main]                         be.pxl.services.CommentServiceApplication - Started CommentServiceApplication in 14.613 seconds (process running for 16.36)
 2024-12-25T16:58:33.695+0100 INFO               [http-nio-8084-exec-6]         be.pxl.services.services.CommentService - Added Comment: Comment(id=802, user=redacteur, comment=qsdqsd, postId=2)
 2024-12-25T16:58:49.417+0100 INFO               [http-nio-8084-exec-1]         be.pxl.services.services.CommentService - Added Comment: Comment(id=803, user=gebruiker, comment=qsdqsd, postId=2)
+2024-12-25T17:25:44.264+0100 INFO               [main]                         be.pxl.services.ConfigServiceApplication - Starting ConfigServiceApplication using Java 21.0.1 with PID 10640 (C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices\config-service\target\classes started by Ozkan in C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices)
+2024-12-25T17:25:44.266+0100 DEBUG              [main]                         be.pxl.services.ConfigServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2024-12-25T17:25:44.267+0100 INFO               [main]                         be.pxl.services.ConfigServiceApplication - The following 1 profile is active: "native"
+2024-12-25T17:25:49.216+0100 INFO               [main]                         be.pxl.services.ConfigServiceApplication - Started ConfigServiceApplication in 6.963 seconds (process running for 8.211)

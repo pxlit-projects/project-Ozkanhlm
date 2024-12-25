@@ -16,9 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/review")
 public class ReviewController {
-
     private final IReviewService reviewService;
-    private final ReviewMessageProducer reviewMessageProducer;
 
     @GetMapping
     public ResponseEntity getReviews(){
@@ -33,18 +31,9 @@ public class ReviewController {
 
     @PostMapping()
     public ResponseEntity<String> addReview(@RequestBody ReviewRequest reviewRequest) {
-        try {
-            reviewService.addReview(reviewRequest);
-            try {
-                reviewMessageProducer.sendMessage(reviewRequest);
-            } catch (Exception e) {
-                return new ResponseEntity<>("Review saved, but failed to send message to RabbitMQ: " + e.getMessage(),
-                        HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-            return new ResponseEntity<>("Review added successfully", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Failed to save review: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        reviewService.addReview(reviewRequest);
+        return new ResponseEntity<>("Review added successfully", HttpStatus.OK);
+
     }
 
     @DeleteMapping("/post/{postId}")

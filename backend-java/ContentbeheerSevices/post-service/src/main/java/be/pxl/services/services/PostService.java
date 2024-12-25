@@ -36,7 +36,6 @@ public class PostService implements IPostService {
     public List<PostResponse> getAllPosts() {
         try {
             List<Post> posts = postRepository.findAll();
-            logger.info("Get all Posts: {}", posts);
             return posts.stream().map(this::mapToPostResponse).toList();
         } catch (Exception e) {
             logger.error("An error occurred while fetching all posts", e);
@@ -158,7 +157,7 @@ public class PostService implements IPostService {
         post.setReviewIds(postRequest.getReviewIds());
 
         postRepository.save(post);
-
+        logger.info("Post updated with ID: {}", post.getId());
         return mapToPostResponse(post);
     }
 

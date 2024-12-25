@@ -4,3 +4,14 @@
 2024-12-25T16:57:46.811+0100 INFO               [main]                         be.pxl.services.NotificationServiceApplication - Started NotificationServiceApplication in 12.525 seconds (process running for 14.266)
 2024-12-25T16:58:35.835+0100 INFO               [http-nio-8085-exec-1]         be.pxl.services.service.NotificationService - E-mail succesvol verzonden naar: ozkanhalim3600@gmail.com
 2024-12-25T16:58:50.447+0100 INFO               [http-nio-8085-exec-2]         be.pxl.services.service.NotificationService - E-mail succesvol verzonden naar: ozkanhalim3600@gmail.com
+2024-12-25T17:26:45.890+0100 INFO               [main]                         be.pxl.services.NotificationServiceApplication - Starting NotificationServiceApplication using Java 21.0.1 with PID 14712 (C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices\notification-service\target\classes started by Ozkan in C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices)
+2024-12-25T17:26:45.893+0100 DEBUG              [main]                         be.pxl.services.NotificationServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2024-12-25T17:26:45.894+0100 INFO               [main]                         be.pxl.services.NotificationServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2024-12-25T17:26:54.810+0100 INFO               [main]                         be.pxl.services.NotificationServiceApplication - Started NotificationServiceApplication in 12.189 seconds (process running for 13.553)
+2024-12-25T17:28:21.845+0100 INFO               [http-nio-8085-exec-1]         be.pxl.services.service.NotificationService - E-mail succesvol verzonden naar: ozkanhalim3600@gmail.com
+2024-12-25T17:28:22.005+0100 INFO               [http-nio-8085-exec-2]         be.pxl.services.service.NotificationService - E-mail succesvol verzonden naar: ozkanhalim3600@gmail.com
+2024-12-25T17:29:16.765+0100 INFO               [http-nio-8085-exec-5]         be.pxl.services.service.NotificationService - E-mail succesvol verzonden naar: ozkanhalim3600@gmail.com
+2024-12-25T17:29:23.513+0100 INFO               [http-nio-8085-exec-4]         be.pxl.services.service.NotificationService - E-mail succesvol verzonden naar: ozkanhalim3600@gmail.com
+2024-12-25T17:29:31.039+0100 INFO               [http-nio-8085-exec-7]         be.pxl.services.service.NotificationService - E-mail succesvol verzonden naar: ozkanhalim3600@gmail.com
+2024-12-25T17:29:46.231+0100 INFO               [http-nio-8085-exec-8]         be.pxl.services.service.NotificationService - E-mail succesvol verzonden naar: ozkanhalim3600@gmail.com
+2024-12-25T17:29:48.222+0100 INFO               [http-nio-8085-exec-3]         be.pxl.services.service.NotificationService - E-mail succesvol verzonden naar: ozkanhalim3600@gmail.com

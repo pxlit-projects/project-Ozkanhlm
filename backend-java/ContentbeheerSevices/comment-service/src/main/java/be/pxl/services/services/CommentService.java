@@ -69,6 +69,7 @@ public class CommentService implements ICommentService {
         List<Comment> comments = commentRepository.findAllByPostId(postId);
 
         if (comments.isEmpty()) {
+            logger.warn("No comments found for postId: {}", postId);
             throw new NotFoundException("No comments found for postId: " + postId);
         }
 
@@ -88,8 +89,8 @@ public class CommentService implements ICommentService {
     public void deleteCommentsByPostId(Long postId) {
         try {
             List<Comment> comments = getCommentsOrThrow(postId);
-
             commentRepository.deleteAll(comments);
+            logger.info("Deleted comments: {}", comments);
         } catch (Exception e) {
             logger.error("Error deleting comments for postId {}: {}", postId, e.getMessage(), e);
             throw new RuntimeException("Error deleting comments for postId " + postId, e);
@@ -103,6 +104,9 @@ public class CommentService implements ICommentService {
                     .orElseThrow(() -> new RuntimeException("Comment not found"));
             comment.setComment(commentRequest.getComment());
             Comment updatedComment = commentRepository.save(comment);
+
+            logger.info("Updated comment: {}", updatedComment);
+
             return mapToCommentResponse(updatedComment);
         } catch (Exception e) {
             logger.error("Error updating comment with id {}: {}", commentId, e.getMessage(), e);
@@ -116,6 +120,8 @@ public class CommentService implements ICommentService {
             Comment comment = commentRepository.findById(commentId)
                     .orElseThrow(() -> new RuntimeException("Comment not found with id: " + commentId));
             commentRepository.delete(comment);
+
+            logger.info("Deleted comment: {}", comment);
         } catch (Exception e) {
             logger.error("Error deleting comment with id {}: {}", commentId, e.getMessage(), e);
             throw new RuntimeException("Error deleting comment", e);

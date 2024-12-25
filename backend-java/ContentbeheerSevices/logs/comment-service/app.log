@@ -1,0 +1,22 @@
+2024-12-25T17:26:56.368+0100 INFO               [main]                         be.pxl.services.CommentServiceApplication - Starting CommentServiceApplication using Java 21.0.1 with PID 27524 (C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices\comment-service\target\classes started by Ozkan in C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices)
+2024-12-25T17:26:56.370+0100 DEBUG              [main]                         be.pxl.services.CommentServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2024-12-25T17:26:56.371+0100 INFO               [main]                         be.pxl.services.CommentServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2024-12-25T17:27:09.645+0100 INFO               [main]                         be.pxl.services.CommentServiceApplication - Started CommentServiceApplication in 16.689 seconds (process running for 18.545)
+2024-12-25T17:27:37.089+0100 INFO               [http-nio-8084-exec-2]         be.pxl.services.services.CommentService - Added Comment: Comment(id=852, user=gebruiker, comment=Dit is 5de comment, postId=2)
+2024-12-25T17:29:08.000+0100 ERROR              [http-nio-8084-exec-6]         be.pxl.services.services.CommentService - No comments found for postId: 102
+2024-12-25T17:29:08.735+0100 ERROR              [http-nio-8084-exec-8]         be.pxl.services.services.CommentService - No comments found for postId: 102
+2024-12-25T17:29:09.937+0100 ERROR              [http-nio-8084-exec-9]         be.pxl.services.services.CommentService - No comments found for postId: 102
+2024-12-25T17:29:10.009+0100 ERROR              [http-nio-8084-exec-10]        be.pxl.services.services.CommentService - No comments found for postId: 102
+2024-12-25T17:29:15.906+0100 ERROR              [http-nio-8084-exec-2]         be.pxl.services.services.CommentService - No comments found for postId: 102
+2024-12-25T17:29:17.508+0100 ERROR              [http-nio-8084-exec-3]         be.pxl.services.services.CommentService - No comments found for postId: 102
+2024-12-25T17:29:17.563+0100 ERROR              [http-nio-8084-exec-4]         be.pxl.services.services.CommentService - No comments found for postId: 102
+2024-12-25T17:29:22.660+0100 ERROR              [http-nio-8084-exec-6]         be.pxl.services.services.CommentService - No comments found for postId: 102
+2024-12-25T17:29:24.642+0100 ERROR              [http-nio-8084-exec-7]         be.pxl.services.services.CommentService - No comments found for postId: 102
+2024-12-25T17:29:24.692+0100 ERROR              [http-nio-8084-exec-8]         be.pxl.services.services.CommentService - No comments found for postId: 102
+2024-12-25T17:29:30.039+0100 INFO               [http-nio-8084-exec-9]         be.pxl.services.services.CommentService - Added Comment: Comment(id=853, user=redacteur, comment=sqsdqsd, postId=102)
+2024-12-25T17:29:45.216+0100 INFO               [http-nio-8084-exec-7]         be.pxl.services.services.CommentService - Added Comment: Comment(id=854, user=gebruiker, comment=qsqsd, postId=102)
+2024-12-25T17:29:46.546+0100 INFO               [http-nio-8084-exec-8]         be.pxl.services.services.CommentService - Added Comment: Comment(id=855, user=gebruiker, comment=qsqsd, postId=102)
+2024-12-25T17:29:48.162+0100 INFO               [http-nio-8084-exec-9]         be.pxl.services.services.CommentService - Deleted comment: Comment(id=854, user=gebruiker, comment=qsqsd, postId=102)
+2024-12-25T17:29:51.634+0100 INFO               [http-nio-8084-exec-10]        be.pxl.services.services.CommentService - Updated comment: Comment(id=855, user=gebruiker, comment=qsqsdqsd qsdqsd, postId=102)
+2024-12-25T17:30:06.336+0100 INFO               [http-nio-8084-exec-5]         be.pxl.services.services.CommentService - Deleted comment: Comment(id=853, user=redacteur, comment=sqsdqsd, postId=102)
+2024-12-25T17:30:08.521+0100 INFO               [http-nio-8084-exec-6]         be.pxl.services.services.CommentService - Deleted comments: [Comment(id=855, user=gebruiker, comment=qsqsdqsd qsdqsd, postId=102)]

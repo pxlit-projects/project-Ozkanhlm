@@ -2,3 +2,15 @@
 2024-12-25T16:57:32.976+0100 DEBUG              [main]                         be.pxl.services.ReviewServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
 2024-12-25T16:57:32.981+0100 INFO               [main]                         be.pxl.services.ReviewServiceApplication - No active profile set, falling back to 1 default profile: "default"
 2024-12-25T16:57:49.057+0100 INFO               [main]                         be.pxl.services.ReviewServiceApplication - Started ReviewServiceApplication in 19.847 seconds (process running for 21.302)
+2024-12-25T17:26:37.851+0100 INFO               [main]                         be.pxl.services.ReviewServiceApplication - Starting ReviewServiceApplication using Java 21.0.1 with PID 40468 (C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices\review-service\target\classes started by Ozkan in C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices)
+2024-12-25T17:26:37.856+0100 DEBUG              [main]                         be.pxl.services.ReviewServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2024-12-25T17:26:37.858+0100 INFO               [main]                         be.pxl.services.ReviewServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2024-12-25T17:26:53.499+0100 INFO               [main]                         be.pxl.services.ReviewServiceApplication - Started ReviewServiceApplication in 18.97 seconds (process running for 20.587)
+2024-12-25T17:27:31.971+0100 INFO               [http-nio-8083-exec-5]         be.pxl.services.services.ReviewService - Added Review: Review(id=1752, reviewStatus=APPROVED, reviewMessage=DIT IS GOED, postId=2)
+2024-12-25T17:29:08.099+0100 ERROR              [http-nio-8083-exec-10]        be.pxl.services.services.ReviewService - No reviews found for postId: 102
+2024-12-25T17:29:08.753+0100 ERROR              [http-nio-8083-exec-4]         be.pxl.services.services.ReviewService - No reviews found for postId: 102
+2024-12-25T17:29:09.907+0100 ERROR              [http-nio-8083-exec-8]         be.pxl.services.services.ReviewService - No reviews found for postId: 102
+2024-12-25T17:29:09.989+0100 ERROR              [http-nio-8083-exec-7]         be.pxl.services.services.ReviewService - No reviews found for postId: 102
+2024-12-25T17:29:15.780+0100 INFO               [http-nio-8083-exec-1]         be.pxl.services.services.ReviewService - Added Review: Review(id=1753, reviewStatus=REJECTED, reviewMessage=Niet goed, postId=102)
+2024-12-25T17:29:22.539+0100 INFO               [http-nio-8083-exec-10]        be.pxl.services.services.ReviewService - Added Review: Review(id=1754, reviewStatus=APPROVED, reviewMessage=, postId=102)
+2024-12-25T17:30:08.495+0100 INFO               [http-nio-8083-exec-5]         be.pxl.services.services.ReviewService - Deleted Reviews: [Review(id=1753, reviewStatus=REJECTED, reviewMessage=Niet goed, postId=102), Review(id=1754, reviewStatus=APPROVED, reviewMessage=, postId=102)]

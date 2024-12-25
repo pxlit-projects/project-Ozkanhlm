@@ -16,9 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/comment")
 public class CommentController {
-
     private final ICommentService commentService;
-    private final CommentMessageProducer commentMessageProducer;
 
     @GetMapping
     public ResponseEntity getComments(){

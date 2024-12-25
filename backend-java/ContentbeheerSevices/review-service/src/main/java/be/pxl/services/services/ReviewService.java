@@ -3,7 +3,9 @@ package be.pxl.services.services;
 import be.pxl.services.domain.Review;
 import be.pxl.services.domain.dto.ReviewRequest;
 import be.pxl.services.domain.dto.ReviewResponse;
+import be.pxl.services.messaging.ReviewMessageProducer;
 import be.pxl.services.repository.ReviewRepository;
+import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 public class ReviewService implements IReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final ReviewMessageProducer reviewMessageProducer;
 
     private static final Logger logger = LoggerFactory.getLogger(ReviewService.class);
     @Override
@@ -45,15 +48,25 @@ public class ReviewService implements IReviewService {
         try {
             Review savedReview = reviewRepository.save(review);
             reviewRequest.setId(savedReview.getId());
+            logger.info("Added Review: {}", savedReview);
+
+            try {
+                reviewMessageProducer.sendMessage(reviewRequest);
+            } catch (Exception e) {
+                logger.error("Error sending message for review: {}", e.getMessage(), e);
+                throw new RuntimeException("Error sending message for review: " + e.getMessage(), e);
+            }
+
         } catch (Exception e) {
+            logger.error("Error saving review: {}", e.getMessage(), e);
             throw new RuntimeException("Error saving review: " + e.getMessage(), e);
         }
     }
 
     @Override
     public List<ReviewResponse> getReviewsByPostId(Long postId) {
+        List<Review> reviews = getReviewsOrThrow(postId);
 
-        List<Review> reviews = reviewRepository.findAllByPostId(postId);
         return reviews.stream()
                 .map(this::mapToReviewResponse)
                 .collect(Collectors.toList());
@@ -61,7 +74,19 @@ public class ReviewService implements IReviewService {
 
     @Override
     public void deleteReviewsByPostId(Long postId) {
-        List<Review> reviews = reviewRepository.findAllByPostId(postId);
+        List<Review> reviews = getReviewsOrThrow(postId);
         reviewRepository.deleteAll(reviews);
+        logger.info("Deleted Reviews: {}", reviews);
+    }
+
+    private List<Review> getReviewsOrThrow(Long postId) {
+        List<Review> reviews = reviewRepository.findAllByPostId(postId);
+
+        if (reviews.isEmpty()) {
+            logger.warn("No reviews found for postId: {}", postId);
+            throw new NotFoundException("No reviews found for postId: " + postId);
+        }
+
+        return reviews;
     }
 }
