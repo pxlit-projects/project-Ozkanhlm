@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { PostListComponent } from './core/post/post-list/post-list.component';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './core/navbar/navbar.component';
 

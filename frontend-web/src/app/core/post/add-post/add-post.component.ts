@@ -9,11 +9,21 @@ import { PostService } from '../../../shared/services/post.service';
 import { Post } from '../../../shared/models/post.model';
 import { Router } from '@angular/router';
 import { RoleService } from '../../../shared/services/role.service';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-add-post',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+  ],
   templateUrl: './add-post.component.html',
   styleUrl: './add-post.component.css',
 })
@@ -28,6 +38,7 @@ export class AddPostComponent {
 
   postService: PostService = inject(PostService);
   router: Router = inject(Router);
+  snackBar: MatSnackBar = inject(MatSnackBar);
 
   ngOnInit(): void {
     this.postService.getCategories().subscribe({
@@ -51,7 +62,7 @@ export class AddPostComponent {
 
   postForm: FormGroup = this.fb.group({
     title: ['', Validators.required],
-    picture: ['', [Validators.required]],
+    picture: [''],
     content: ['', [Validators.required]],
     author: ['', Validators.required],
     category: ['', Validators.required],
@@ -68,6 +79,12 @@ export class AddPostComponent {
     this.postService.addPost(newPost).subscribe({
       next: () => {
         this.postForm.reset();
+        this.snackBar.open('Post succesvol aangemaakt!', 'Sluiten', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+
         this.router.navigate(['/posts']);
       },
       error: (error) => {

@@ -50,3 +50,115 @@ The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for t
 2024-12-25T17:30:08.497+0100 INFO               [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Successfully deleted reviews for postId [102].
 2024-12-25T17:30:08.524+0100 INFO               [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Successfully deleted comments for postId [102].
 2024-12-25T17:30:08.555+0100 INFO               [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Post with id [102] deleted successfully.
+2024-12-25T21:05:01.104+0100 INFO               [main]                         be.pxl.services.PostServiceApplication - Starting PostServiceApplication using Java 21.0.1 with PID 34340 (C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices\post-service\target\classes started by Ozkan in C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices)
+2024-12-25T21:05:01.107+0100 DEBUG              [main]                         be.pxl.services.PostServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2024-12-25T21:05:01.107+0100 INFO               [main]                         be.pxl.services.PostServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2024-12-25T21:05:15.322+0100 INFO               [main]                         be.pxl.services.PostServiceApplication - Started PostServiceApplication in 17.54 seconds (process running for 19.201)
+2024-12-25T21:06:51.968+0100 INFO               [main]                         be.pxl.services.PostServiceApplication - Starting PostServiceApplication using Java 21.0.1 with PID 21356 (C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices\post-service\target\classes started by Ozkan in C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices)
+2024-12-25T21:06:51.969+0100 DEBUG              [main]                         be.pxl.services.PostServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2024-12-25T21:06:51.969+0100 INFO               [main]                         be.pxl.services.PostServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2024-12-25T21:07:06.555+0100 INFO               [main]                         be.pxl.services.PostServiceApplication - Started PostServiceApplication in 18.071 seconds (process running for 19.751)
+2024-12-25T21:35:30.456+0100 INFO               [http-nio-8082-exec-2]         be.pxl.services.controller.PostController - ****Received post request: PostRequest(title=TEst , picture=qsdqsd, content=qsdqsd, author=qsdqsd, status=PENDING, category=ANNOUNCEMENTS, commentIds=null, reviewIds=null)****
+2024-12-25T21:35:30.721+0100 INFO               [http-nio-8082-exec-2]         be.pxl.services.services.PostService - Post added with ID: 152
+2024-12-25T21:35:31.077+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:35:31.334+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:35:32.946+0100 ERROR              [http-nio-8082-exec-3]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:35:32.965+0100 ERROR              [http-nio-8082-exec-3]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:36:53.546+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:36:53.563+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:41:02.888+0100 INFO               [http-nio-8082-exec-10]        be.pxl.services.controller.PostController - ****Received post request: PostRequest(title=Add new Post Angular Material, picture=, content=Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum., author=Ozkan H.sd, status=PUBLISH, category=ANNOUNCEMENTS, commentIds=null, reviewIds=null)****
+2024-12-25T21:41:02.942+0100 INFO               [http-nio-8082-exec-10]        be.pxl.services.services.PostService - Post added with ID: 153
+2024-12-25T21:41:03.169+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:41:03.215+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:41:03.274+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:41:03.302+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:41:58.050+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:41:58.075+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:41:58.095+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:41:58.116+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:42:04.386+0100 ERROR              [http-nio-8082-exec-2]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:42:04.410+0100 ERROR              [http-nio-8082-exec-2]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:42:04.436+0100 ERROR              [http-nio-8082-exec-2]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:42:04.457+0100 ERROR              [http-nio-8082-exec-2]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:42:06.102+0100 ERROR              [http-nio-8082-exec-3]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:42:06.138+0100 ERROR              [http-nio-8082-exec-3]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:42:06.171+0100 ERROR              [http-nio-8082-exec-3]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:42:06.209+0100 ERROR              [http-nio-8082-exec-3]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:42:22.766+0100 ERROR              [http-nio-8082-exec-6]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:42:22.872+0100 ERROR              [http-nio-8082-exec-6]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:42:22.922+0100 ERROR              [http-nio-8082-exec-6]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:42:22.948+0100 ERROR              [http-nio-8082-exec-6]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:46:41.403+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:46:41.449+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:46:41.469+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:46:41.494+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:46:52.980+0100 INFO               [http-nio-8082-exec-4]         be.pxl.services.controller.PostController - ****Received post request: PostRequest(title=Test toasrt, picture=https://picsum.photos/200/300, content=qsdqsd, author=qsdqsd, status=PUBLISH, category=ANNOUNCEMENTS, commentIds=null, reviewIds=null)****
+2024-12-25T21:46:53.020+0100 INFO               [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Post added with ID: 154
+2024-12-25T21:46:53.243+0100 ERROR              [http-nio-8082-exec-3]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:46:53.264+0100 ERROR              [http-nio-8082-exec-3]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:46:53.287+0100 ERROR              [http-nio-8082-exec-3]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:46:53.304+0100 ERROR              [http-nio-8082-exec-3]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:46:53.320+0100 ERROR              [http-nio-8082-exec-3]         be.pxl.services.services.PostService - Error fetching comments for post 154: 
+2024-12-25T21:46:53.334+0100 ERROR              [http-nio-8082-exec-3]         be.pxl.services.services.PostService - Error fetching reviews for post 154
+2024-12-25T21:47:15.598+0100 ERROR              [http-nio-8082-exec-9]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:47:15.610+0100 ERROR              [http-nio-8082-exec-9]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:47:15.629+0100 ERROR              [http-nio-8082-exec-9]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:47:15.644+0100 ERROR              [http-nio-8082-exec-9]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:47:15.659+0100 ERROR              [http-nio-8082-exec-9]         be.pxl.services.services.PostService - Error fetching comments for post 154: 
+2024-12-25T21:47:15.675+0100 ERROR              [http-nio-8082-exec-9]         be.pxl.services.services.PostService - Error fetching reviews for post 154
+2024-12-25T21:47:17.626+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:47:17.640+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:47:17.658+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:47:17.672+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:47:17.730+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching comments for post 154: 
+2024-12-25T21:47:17.746+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching reviews for post 154
+2024-12-25T21:48:39.256+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:48:39.279+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:48:39.302+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:48:39.325+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:48:39.346+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching comments for post 154: 
+2024-12-25T21:48:39.378+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching reviews for post 154
+2024-12-25T21:48:56.566+0100 ERROR              [http-nio-8082-exec-5]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:48:56.578+0100 ERROR              [http-nio-8082-exec-5]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:48:56.592+0100 ERROR              [http-nio-8082-exec-5]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:48:56.604+0100 ERROR              [http-nio-8082-exec-5]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:48:56.620+0100 ERROR              [http-nio-8082-exec-5]         be.pxl.services.services.PostService - Error fetching comments for post 154: 
+2024-12-25T21:48:56.635+0100 ERROR              [http-nio-8082-exec-5]         be.pxl.services.services.PostService - Error fetching reviews for post 154
+2024-12-25T21:48:59.577+0100 ERROR              [http-nio-8082-exec-9]         be.pxl.services.services.PostService - Error fetching reviews for post 154
+2024-12-25T21:48:59.594+0100 ERROR              [http-nio-8082-exec-9]         be.pxl.services.services.PostService - Error fetching comments for post 154: 
+2024-12-25T21:48:59.651+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching reviews for post 154
+2024-12-25T21:48:59.667+0100 ERROR              [http-nio-8082-exec-7]         be.pxl.services.services.PostService - Error fetching comments for post 154: 
+2024-12-25T21:51:06.002+0100 ERROR              [http-nio-8082-exec-3]         be.pxl.services.services.PostService - Error fetching reviews for post 154
+2024-12-25T21:51:06.044+0100 ERROR              [http-nio-8082-exec-3]         be.pxl.services.services.PostService - Error fetching comments for post 154: 
+2024-12-25T21:51:06.100+0100 ERROR              [http-nio-8082-exec-1]         be.pxl.services.services.PostService - Error fetching reviews for post 154
+2024-12-25T21:51:06.129+0100 ERROR              [http-nio-8082-exec-1]         be.pxl.services.services.PostService - Error fetching comments for post 154: 
+2024-12-25T21:51:11.456+0100 ERROR              [http-nio-8082-exec-8]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:51:11.474+0100 ERROR              [http-nio-8082-exec-8]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:51:11.504+0100 ERROR              [http-nio-8082-exec-8]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:51:11.532+0100 ERROR              [http-nio-8082-exec-8]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:51:11.551+0100 ERROR              [http-nio-8082-exec-8]         be.pxl.services.services.PostService - Error fetching comments for post 154: 
+2024-12-25T21:51:11.567+0100 ERROR              [http-nio-8082-exec-8]         be.pxl.services.services.PostService - Error fetching reviews for post 154
+2024-12-25T21:51:19.465+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:51:19.485+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:51:19.503+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:51:19.525+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:51:19.542+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching comments for post 154: 
+2024-12-25T21:51:19.559+0100 ERROR              [http-nio-8082-exec-4]         be.pxl.services.services.PostService - Error fetching reviews for post 154
+2024-12-25T21:51:25.809+0100 ERROR              [http-nio-8082-exec-6]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:51:25.830+0100 ERROR              [http-nio-8082-exec-6]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:51:25.850+0100 ERROR              [http-nio-8082-exec-6]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:51:25.867+0100 ERROR              [http-nio-8082-exec-6]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:51:25.881+0100 ERROR              [http-nio-8082-exec-6]         be.pxl.services.services.PostService - Error fetching comments for post 154: 
+2024-12-25T21:51:25.894+0100 ERROR              [http-nio-8082-exec-6]         be.pxl.services.services.PostService - Error fetching reviews for post 154
+2024-12-25T21:51:29.950+0100 ERROR              [http-nio-8082-exec-5]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:51:29.987+0100 ERROR              [http-nio-8082-exec-5]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:51:30.021+0100 ERROR              [http-nio-8082-exec-5]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:51:30.050+0100 ERROR              [http-nio-8082-exec-5]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:51:30.096+0100 ERROR              [http-nio-8082-exec-5]         be.pxl.services.services.PostService - Error fetching comments for post 154: 
+2024-12-25T21:51:30.121+0100 ERROR              [http-nio-8082-exec-5]         be.pxl.services.services.PostService - Error fetching reviews for post 154
+2024-12-25T21:51:31.751+0100 ERROR              [http-nio-8082-exec-8]         be.pxl.services.services.PostService - Error fetching comments for post 152: 
+2024-12-25T21:51:31.768+0100 ERROR              [http-nio-8082-exec-8]         be.pxl.services.services.PostService - Error fetching reviews for post 152
+2024-12-25T21:51:31.788+0100 ERROR              [http-nio-8082-exec-8]         be.pxl.services.services.PostService - Error fetching comments for post 153: 
+2024-12-25T21:51:31.808+0100 ERROR              [http-nio-8082-exec-8]         be.pxl.services.services.PostService - Error fetching reviews for post 153
+2024-12-25T21:51:31.826+0100 ERROR              [http-nio-8082-exec-8]         be.pxl.services.services.PostService - Error fetching comments for post 154: 
+2024-12-25T21:51:31.842+0100 ERROR              [http-nio-8082-exec-8]         be.pxl.services.services.PostService - Error fetching reviews for post 154

@@ -1,72 +1,87 @@
 @if (role === 'redacteur') {
-<div class="px-20 bg-slate-200 my-10">
-  <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">Create Post</h2>
+<div class="px-20 bg-slate-200 py-10">
+  <h2 class="text-4xl font-bold text-center mb-8">Create Post</h2>
+
   <form
     [formGroup]="postForm"
     (ngSubmit)="onSubmit()"
     class="flex flex-col gap-5"
   >
-    <div class="flex gap-5">
-      <label for="title">Titel</label>
-      <input
-        type="text"
-        id="title"
-        name="title"
-        formControlName="title"
-        required
-      />
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Titel</mat-label>
+      <input matInput id="title" formControlName="title" required />
       @if (postForm.get('title')?.touched &&
-      postForm.get('title')?.hasError('required')){
-      <div class="text-red-500 text-sm mt-1">Titel is verplicht</div>
+      postForm.get('title')?.hasError('required')) {
+      <mat-error> Titel is verplicht </mat-error>
       }
-    </div>
-    <div class="flex gap-5">
-      <label for="picture">Picture URL</label>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Picture URL</mat-label>
       <input
-        type="text"
+        matInput
         id="picture"
-        name="picture"
         formControlName="picture"
         placeholder="https://picsum.photos/200/300"
       />
-    </div>
-    <div class="flex gap-5">
-      <label for="content">Content</label>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Content</mat-label>
       <textarea
+        matInput
         id="content"
-        name="content"
         formControlName="content"
-        class="w-96 h-32"
+        class="w-full h-32"
         required
       ></textarea>
-    </div>
-    <div class="flex gap-5">
-      <label for="author">Author</label>
-      <input
-        type="text"
-        id="author"
-        name="author"
-        formControlName="author"
-        required
-      />
-    </div>
-    <div class="flex gap-5">
-      <label for="category">Category</label>
-      <select id="category" formControlName="category" name="category">
-        @for(category of categories; track category){
-        <option [value]="category">{{ category }}</option>
+      @if (postForm.get('content')?.touched &&
+      postForm.get('content')?.hasError('required')) {
+      <mat-error> Content is verplicht </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Author</mat-label>
+      <input matInput id="author" formControlName="author" required />
+      @if (postForm.get('author')?.touched &&
+      postForm.get('author')?.hasError('required')) {
+      <mat-error> Author is verplicht </mat-error>
+      }
+    </mat-form-field>
+
+    <div class="flex gap-10">
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category">
+          @for(category of categories; track category ){
+          <mat-option [value]="category">{{ category }}</mat-option>
+          }
+        </mat-select>
+        @if (postForm.get('category')?.touched &&
+        postForm.get('category')?.hasError('required')) {
+        <mat-error> Category is verplicht </mat-error>
         }
-      </select>
-    </div>
-    <div class="flex gap-5">
-      <label for="status">Status</label>
-      <select id="status" name="status" formControlName="status">
-        @for(status of statuses; track status ){
-        <option [value]="status">{{ status }}</option>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          @for(status of statuses; track status ){
+          <mat-option [value]="status">{{ status }}</mat-option>
+          }
+        </mat-select>
+        @if (postForm.get('status')?.touched &&
+        postForm.get('status')?.hasError('required')) {
+        <mat-error> Status is verplicht </mat-error>
         }
-      </select>
+      </mat-form-field>
     </div>
-    <button type="submit" class="bg-blue-300 w-fit px-10 py-2 rounded-lg">
+
+    <button
+      type="submit"
+      class="bg-green-500 w-fit px-10 text-white font-semibold py-2 rounded-lg"
+    >
       Create Post
     </button>
   </form>
