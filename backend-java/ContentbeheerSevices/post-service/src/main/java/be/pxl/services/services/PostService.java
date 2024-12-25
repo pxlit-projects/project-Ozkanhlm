@@ -34,29 +34,53 @@ public class PostService implements IPostService {
 
     @Override
     public List<PostResponse> getAllPosts() {
-         List<Post> posts = postRepository.findAll();
-         logger.info("Get all Posts: {}",posts);
-         return posts.stream().map(this::mapToPostResponse).toList();
+        try {
+            List<Post> posts = postRepository.findAll();
+            logger.info("Get all Posts: {}", posts);
+            return posts.stream().map(this::mapToPostResponse).toList();
+        } catch (Exception e) {
+            logger.error("An error occurred while fetching all posts", e);
+            throw new RuntimeException("Failed to fetch posts", e);
+        }
+    }
+
+    @Override
+    public List<String> getCategories() {
+        return Arrays.stream(Category.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getStatuses() {
+        return Arrays.stream(Status.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+    }
+
+    private List<ReviewResponse> fetchReviews(Long postId) {
+        try {
+            return reviewClient.getReviewsByPostId(postId);
+        } catch (FeignException.NotFound e) {
+            logger.warn("No reviews found for post {}", postId);
+        } catch (Exception e) {
+            logger.error("Error fetching reviews for post {}: {}", postId, e.getMessage(), e);
+        }
+        return Collections.emptyList();
+    }
+
+    private List<CommentResponse> fetchComments(Long postId) {
+        try {
+            return commentClient.getCommentsByPostId(postId);
+        } catch (FeignException.NotFound e) {
+            logger.warn("No comments found for post {}", postId);
+        } catch (Exception e) {
+            logger.error("Error fetching comments for post {}: {}", postId, e.getMessage(), e);
+        }
+        return Collections.emptyList();
     }
 
     private PostResponse mapToPostResponse(Post post) {
-
-        List<ReviewResponse> reviews;
-        try {
-            reviews = reviewClient.getReviewsByPostId(post.getId());
-        } catch (Exception e) {
-            logger.error("Error fetching reviews for post {}: {}", post.getId(), e.getMessage());
-            reviews = Collections.emptyList();
-        }
-
-        List<CommentResponse> comments;
-        try {
-            comments = commentClient.getCommentsByPostId(post.getId());
-        } catch (Exception e) {
-            logger.error("Error fetching comments for post {}: {}", post.getId(), e.getMessage());
-            comments = Collections.emptyList();
-        }
-
         return PostResponse.builder()
                 .id(post.getId())
                 .title(post.getTitle())
@@ -65,54 +89,46 @@ public class PostService implements IPostService {
                 .author(post.getAuthor())
                 .status(post.getStatus())
                 .category(post.getCategory())
-                .comments(comments)
-                .reviews(reviews)
+                .comments(fetchComments(post.getId()))
+                .reviews(fetchReviews(post.getId()))
                 .createdDate(post.getCreatedDate())
                 .build();
     }
 
     @Override
     public void addPost(PostRequest postRequest) {
+        try {
+            Post post = Post.builder()
+                    .title(postRequest.getTitle())
+                    .picture(postRequest.getPicture())
+                    .content(postRequest.getContent())
+                    .author(postRequest.getAuthor())
+                    .status(postRequest.getStatus())
+                    .category(postRequest.getCategory())
+                    .commentIds(postRequest.getCommentIds())
+                    .reviewIds(postRequest.getReviewIds())
+                    .build();
+            postRepository.save(post);
 
-        Post post = Post.builder()
-                .title(postRequest.getTitle())
-                .picture(postRequest.getPicture())
-                .content(postRequest.getContent())
-                .author(postRequest.getAuthor())
-                .status(postRequest.getStatus())
-                .category(postRequest.getCategory())
-                .commentIds(postRequest.getCommentIds())
-                .reviewIds(postRequest.getReviewIds())
-                .build();
-        postRepository.save(post);
+            logger.info("Post added with ID: {}", post.getId());
+        } catch (Exception e) {
+            logger.error("Error adding post: {}", e.getMessage(), e);
+            throw new RuntimeException("Error adding post", e);
+        }
+    }
+
+
+    private Post findPostOrThrow(Long postId) {
+        return postRepository.findById(postId)
+                .orElseThrow(() -> new NotFoundException("No post with id [" + postId + "]"));
     }
 
     @Override
     public PostResponse findPostById(Long postId) {
-        Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new NotFoundException("No post with id [" + postId + "]"));
+        Post post = findPostOrThrow(postId);
 
-        List<ReviewResponse> reviews;
-        try {
-            reviews = reviewClient.getReviewsByPostId(postId);
-        } catch (FeignException.NotFound e) {
-            logger.warn("No reviews found for post {}", postId);
-            reviews = Collections.emptyList();
-        } catch (FeignException e) {
-            logger.error("Error fetching reviews for post {}: {}", postId, e.getMessage());
-            reviews = Collections.emptyList();
-        }
-
-        List<CommentResponse> comments;
-        try {
-            comments = commentClient.getCommentsByPostId(postId);
-        } catch (FeignException.NotFound e) {
-            logger.warn("No comments found for post {}", postId);
-            comments = Collections.emptyList();
-        } catch (FeignException e) {
-            logger.error("Error fetching comments for post {}: {}", postId, e.getMessage());
-            comments = Collections.emptyList();
-        }
+        List<ReviewResponse> reviews = fetchReviews(postId);
+        List<CommentResponse> comments = fetchComments(postId);
 
         return new PostResponse(
                 post.getId(),
@@ -130,8 +146,7 @@ public class PostService implements IPostService {
 
     @Override
     public PostResponse updatePost(Long postId, PostRequest postRequest) {
-        Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new NotFoundException("No post with id [" + postId + "]"));
+        Post post = findPostOrThrow(postId);
 
         post.setTitle(postRequest.getTitle());
         post.setPicture(postRequest.getPicture());
@@ -149,8 +164,7 @@ public class PostService implements IPostService {
 
     @Override
     public void deletePost(Long postId) {
-        Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new NotFoundException("No post with id [" + postId + "]"));
+        Post post = findPostOrThrow(postId);
 
         try {
             reviewClient.deleteReviewsByPostId(postId);
@@ -174,24 +188,9 @@ public class PostService implements IPostService {
         }
     }
 
-    @Override
-    public List<String> getCategories() {
-        return Arrays.stream(Category.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<String> getStatuses() {
-        return Arrays.stream(Status.values())
-                .map(Enum::name)
-                .collect(Collectors.toList());
-    }
-
     @Transactional
     public void updateReviewPost(ReviewMessage reviewMessage) {
-        Post post = postRepository.findById(reviewMessage.getPostId())
-                .orElseThrow(() -> new NotFoundException("No post with id [" + reviewMessage.getPostId() + "]"));
+        Post post = findPostOrThrow(reviewMessage.getPostId());
 
         logger.info("ReviewMessage :{}", reviewMessage);
 
@@ -207,32 +206,16 @@ public class PostService implements IPostService {
                 reviewMessage.getReviewStatus(),
                 post.getTitle()
         );
-
-        NotificationRequest notificationRequest = NotificationRequest.builder()
-                .text(notificationText)
-                .subject("JavaProject")
-                .to("ozkanhalim3600@gmail.com")
-                .build();
-
-        try {
-            notificationClient.sendNotification(notificationRequest);
-
-            logger.info("Email sent successfully to: " + notificationRequest.getTo());
-        } catch (Exception e) {
-            logger.error("Failed to send email: " + e.getMessage(), e);
-        }
+        sendNotification(notificationText);
     }
 
     @Transactional
     public void updateCommentPost(CommentMessage commentMessage) {
-
-        Post post = postRepository.findById(commentMessage.getPostId())
-                .orElseThrow(() -> new NotFoundException("No post with id [" + commentMessage.getPostId() + "]"));
+        Post post = findPostOrThrow(commentMessage.getPostId());
 
         if (post.getCommentIds() == null) {
             post.setCommentIds(new ArrayList<>());
         }
-
 
         post.getCommentIds().add(commentMessage.getId());
         postRepository.save(post);
@@ -243,6 +226,10 @@ public class PostService implements IPostService {
                 post.getTitle()
         );
 
+        sendNotification(notificationText);
+    }
+
+    private void sendNotification(String notificationText) {
         NotificationRequest notificationRequest = NotificationRequest.builder()
                 .text(notificationText)
                 .subject("JavaProject")
@@ -251,10 +238,9 @@ public class PostService implements IPostService {
 
         try {
             notificationClient.sendNotification(notificationRequest);
-
-            logger.info("Email sent successfully to: " + notificationRequest.getTo());
+            logger.info("Email sent successfully to: {}", notificationRequest.getTo());
         } catch (Exception e) {
-            logger.error("Failed to send email: " + e.getMessage(), e);
+            logger.error("Failed to send email: {}", e.getMessage(), e);
         }
     }
 }
