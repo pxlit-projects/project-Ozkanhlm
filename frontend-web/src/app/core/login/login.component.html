@@ -5,27 +5,43 @@
     class="w-full top-0 h-screen object-cover opacity-60 absolute"
   />
   <form
-    [formGroup]="loginForm"
-    (ngSubmit)="onSubmit()"
-    class="space-y-4 z-50 mt-40 bg-black/50 p-10 rounded-xl w-64"
+    #loginForm="ngForm"
+    (ngSubmit)="onSubmit(loginForm)"
+    class="space-y-4 z-50 mt-40 bg-black/50 p-10 rounded-xl maw-w-96"
   >
-    <div class="flex flex-col gap-y-1">
-      <label for="username" class="text-white font-semibold text-xl"
-        >Gebruikersnaam:</label
-      >
-      <input id="username" formControlName="username" />
+    <div>
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Username:</mat-label>
+        <input
+          matInput
+          name="username"
+          id="username"
+          [(ngModel)]="username"
+          minlength=""
+          required
+        />
+        <mat-error> Gebruikersnaam is verplicht </mat-error>
+      </mat-form-field>
     </div>
-    <div class="flex flex-col gap-y-1">
-      <label for="password" class="text-white font-semibold text-xl"
-        >Wachtwoord:</label
-      >
-      <input id="password" type="password" formControlName="password" />
-    </div>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Password:</mat-label>
+      <input
+        matInput
+        name="password"
+        type="password"
+        id="password"
+        [(ngModel)]="password"
+        required
+      />
+
+      <mat-error> Wachtwoord is verplicht </mat-error>
+    </mat-form-field>
     <button
       class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       type="submit"
     >
-      Inloggen
+      Login
     </button>
   </form>
 </div>
