@@ -65,7 +65,7 @@ public class ReviewService implements IReviewService {
 
     @Override
     public List<ReviewResponse> getReviewsByPostId(Long postId) {
-        List<Review> reviews = getReviewsOrThrow(postId);
+        List<Review> reviews = reviewRepository.findAllByPostId(postId);
 
         return reviews.stream()
                 .map(this::mapToReviewResponse)
@@ -74,19 +74,8 @@ public class ReviewService implements IReviewService {
 
     @Override
     public void deleteReviewsByPostId(Long postId) {
-        List<Review> reviews = getReviewsOrThrow(postId);
+        List<Review> reviews = reviewRepository.findAllByPostId(postId);
         reviewRepository.deleteAll(reviews);
         logger.info("Deleted Reviews: {}", reviews);
-    }
-
-    private List<Review> getReviewsOrThrow(Long postId) {
-        List<Review> reviews = reviewRepository.findAllByPostId(postId);
-
-        if (reviews.isEmpty()) {
-            logger.warn("No reviews found for postId: {}", postId);
-            throw new NotFoundException("No reviews found for postId: " + postId);
-        }
-
-        return reviews;
     }
 }

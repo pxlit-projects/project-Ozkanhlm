@@ -64,21 +64,9 @@ public class CommentService implements ICommentService {
               throw new RuntimeException("Error saving comment: " + e.getMessage(), e);
         }
     }
-
-    private List<Comment> getCommentsOrThrow(Long postId) {
-        List<Comment> comments = commentRepository.findAllByPostId(postId);
-
-        if (comments.isEmpty()) {
-            logger.warn("No comments found for postId: {}", postId);
-            throw new NotFoundException("No comments found for postId: " + postId);
-        }
-
-        return comments;
-    }
     @Override
     public List<CommentResponse> getCommentsByPostId(Long postId) {
-
-        List<Comment> comments = getCommentsOrThrow(postId);
+        List<Comment> comments = commentRepository.findAllByPostId(postId);
 
         return comments.stream()
                 .map(this::mapToCommentResponse)
@@ -88,7 +76,7 @@ public class CommentService implements ICommentService {
     @Override
     public void deleteCommentsByPostId(Long postId) {
         try {
-            List<Comment> comments = getCommentsOrThrow(postId);
+            List<Comment> comments = commentRepository.findAllByPostId(postId);
             commentRepository.deleteAll(comments);
             logger.info("Deleted comments: {}", comments);
         } catch (Exception e) {
