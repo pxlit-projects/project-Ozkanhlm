@@ -1,11 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { RoleService } from '../../shared/services/role.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, MatMenuModule, MatButtonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })

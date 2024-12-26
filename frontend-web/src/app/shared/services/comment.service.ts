@@ -19,7 +19,6 @@ export class CommentService {
     commentId: number,
     updatedComment: Comment
   ): Observable<Comment> {
-    console.log('Update comment data:', updatedComment);
     return this.http.put<Comment>(`${this.api}/${commentId}`, updatedComment);
   }
 

@@ -1,5 +1,5 @@
 @if (post$ | async; as post) { @if (role === 'redacteur') {
-<div class="p-20 bg-slate-200 my-10 lg:mx-64">
+<div class="p-5 md:p-20 bg-slate-200 my-10 lg:mx-64">
   <form
     [formGroup]="postForm"
     (ngSubmit)="onSubmit()"
