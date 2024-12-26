@@ -5,6 +5,7 @@ import { Post } from '../../../shared/models/post.model';
 import { FilterComponent } from '../filter/filter.component';
 import { Filter } from '../../../shared/models/filter.model';
 import { PostCardComponent } from '../post-card/post-card.component';
+import { FilterService } from '../../../shared/services/filter.service';
 
 @Component({
   selector: 'app-workbanch',
@@ -19,6 +20,8 @@ export class WorkbanchComponent implements OnInit {
   conceptPosts: Post[] = [];
   postService: PostService = inject(PostService);
   roleService: RoleService = inject(RoleService);
+  filterService: FilterService = inject(FilterService);
+
   role = this.roleService.getRole();
 
   ngOnInit(): void {
@@ -38,28 +41,10 @@ export class WorkbanchComponent implements OnInit {
   }
 
   handleFilter(filter: Filter) {
-    const filteredPosts = this.allPosts.filter((post) => {
-      const matchesContent = filter.content
-        ? post.content.toLowerCase().includes(filter.content.toLowerCase())
-        : true;
-
-      const matchesAuthor = filter.author
-        ? post.author.toLowerCase().includes(filter.author.toLowerCase())
-        : true;
-
-      const matchesTitle = filter.title
-        ? post.title.toLowerCase().includes(filter.title.toLowerCase())
-        : true;
-
-      const matchesDate = filter.createdDate
-        ? this.compareDates(post.createdDate, filter.createdDate)
-        : true;
-
-      return matchesContent && matchesAuthor && matchesDate && matchesTitle;
-    });
-
+    const filteredPosts = this.filterService.filterPosts(this.allPosts, filter);
     this.updateFilteredLists(filteredPosts);
   }
+
   private updateFilteredLists(filteredPosts: Post[] = this.allPosts): void {
     this.conceptPosts = filteredPosts.filter(
       (post) => post.status === 'CONCEPT'
@@ -67,10 +52,5 @@ export class WorkbanchComponent implements OnInit {
     this.pendingPosts = filteredPosts.filter(
       (post) => post.status === 'PENDING'
     );
-  }
-
-  private compareDates(postDate: string, filterDate: string): boolean {
-    const postDateFormatted = new Date(postDate).toISOString().split('T')[0];
-    return postDateFormatted === filterDate;
   }
 }

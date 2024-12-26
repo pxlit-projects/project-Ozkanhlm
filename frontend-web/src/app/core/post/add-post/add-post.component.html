@@ -32,7 +32,8 @@
         matInput
         id="content"
         formControlName="content"
-        class="w-full h-32"
+        class="w-full"
+        rows="10"
         required
       ></textarea>
       @if (postForm.get('content')?.touched &&
@@ -41,17 +42,17 @@
       }
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="w-full">
-      <mat-label>Author</mat-label>
-      <input matInput id="author" formControlName="author" required />
-      @if (postForm.get('author')?.touched &&
-      postForm.get('author')?.hasError('required')) {
-      <mat-error> Author is verplicht </mat-error>
-      }
-    </mat-form-field>
+    <div class="flex gap-10 flex-wrap">
+      <mat-form-field appearance="fill">
+        <mat-label>Author</mat-label>
+        <input matInput id="author" formControlName="author" required />
+        @if (postForm.get('author')?.touched &&
+        postForm.get('author')?.hasError('required')) {
+        <mat-error> Author is verplicht </mat-error>
+        }
+      </mat-form-field>
 
-    <div class="flex gap-10">
-      <mat-form-field appearance="fill" class="w-full">
+      <mat-form-field appearance="fill">
         <mat-label>Category</mat-label>
         <mat-select formControlName="category">
           @for(category of categories; track category ){
@@ -64,7 +65,7 @@
         }
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="w-full">
+      <mat-form-field appearance="fill">
         <mat-label>Status</mat-label>
         <mat-select formControlName="status">
           @for(status of statuses; track status ){

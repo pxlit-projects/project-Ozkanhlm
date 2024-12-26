@@ -81,13 +81,18 @@ export class AddPostComponent {
         this.postForm.reset();
         this.snackBar.open('Post succesvol aangemaakt!', 'Sluiten', {
           duration: 3000,
-          verticalPosition: 'top',
+          verticalPosition: 'bottom',
           horizontalPosition: 'center',
         });
 
         this.router.navigate(['/posts']);
       },
       error: (error) => {
+        this.snackBar.open('Error adding post !', 'Sluiten', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+        });
         console.error('Error adding post:', error);
       },
     });
