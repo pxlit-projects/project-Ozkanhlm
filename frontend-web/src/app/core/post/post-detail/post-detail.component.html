@@ -1,137 +1,110 @@
 @if (post$ | async; as post) { @if (role === 'redacteur') {
-<div class="px-20 bg-slate-200 my-10 lg:mx-64">
-  <h2 class="text-4xl font-bold text-center text-gray-800 mb-8">
-    {{ post.title }}
-  </h2>
+<div class="p-20 bg-slate-200 my-10 lg:mx-64">
   <form
     [formGroup]="postForm"
     (ngSubmit)="onSubmit()"
     class="flex flex-col gap-5"
   >
-    <div>
-      <label for="title">Title</label>
-      <input id="title" formControlName="title" />
-    </div>
-    <img [src]="post.picture" alt="Post Image" class="h-48 object-cover" />
-    <div>
-      <label for="picture">Picture URL</label>
-      <input id="picture" formControlName="picture" />
-    </div>
-    <div>
-      <label for="content">Content</label>
-      <textarea id="content" formControlName="content"></textarea>
-    </div>
-    <div>
-      <label for="author">Author</label>
-      <input id="author" formControlName="author" />
-    </div>
-    <div>
-      <label for="category">Category</label>
-      <select id="category" formControlName="category">
-        @for(category of categories; track category){
-        <option [value]="category">{{ category }}</option>
-        }
-      </select>
-    </div>
-    <div>
-      <label for="status">Status</label>
-      <select id="status" formControlName="status">
-        @for(status of statuses; track status ){
-        <option [value]="status">{{ status }}</option>
-        }
-      </select>
-    </div>
-    <p>
-      <strong class="font-semibold">Date:</strong>
-      {{ post.createdDate | date : "yyyy-MM-dd" }}
-    </p>
-
-    <div class="flex justify-between">
-      <button
-        type="submit"
-        [disabled]="!postForm.valid"
-        class="bg-green-500 hover:bg-green-700 text-white float-right font-bold mt-4 mb-4 py-2 px-2 rounded"
-      >
-        Update Post
-      </button>
-    </div>
-  </form>
-  <button
-    (click)="deletePost()"
-    class="bg-red-500 hover:bg-red-700 text-white float-left font-bold mt-4 mb-4 py-2 px-2 rounded"
-  >
-    Delete Post
-  </button>
-
-  @if(post.status === 'PENDING') {
-  <form
-    [formGroup]="reviewForm"
-    (ngSubmit)="onSubmitReview()"
-    class="flex flex-col gap-5"
-  >
-    <div class="pb-10">
-      <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Reviews</h2>
-      <div>
-        @for (review of post.reviews; track $index) {
-        <div class="flex gap-x-3">
-          <p>Status: {{ review.reviewStatus }}</p>
-          <p>Message: {{ review.reviewMessage }}</p>
-        </div>
-        }
-      </div>
-
-      <div class="flex flex-col gap-y-3">
-        <label for="reviewStatus" class="font-bold">Review status</label>
-        <div class="flex gap-x-5">
-          <div>
-            <input
-              type="radio"
-              id="approve"
-              formControlName="reviewStatus"
-              value="APPROVED"
-              (change)="onStatusChange('APPROVED')"
-            />
-            <label for="approve">Approve</label>
-          </div>
-
-          <div>
-            <input
-              type="radio"
-              id="reject"
-              formControlName="reviewStatus"
-              value="REJECTED"
-              (change)="onStatusChange('REJECTED')"
-            />
-            <label for="reject">Reject</label>
-          </div>
-        </div>
-      </div>
-
-      @if(isRejected) {
-      <div>
-        <div class="flex gap-x-5">
-          <label for="reviewMessage">Reject Reason</label>
-          <input
-            id="reviewMessage"
-            formControlName="reviewMessage"
-            placeholder="Provide reason for rejection"
-          />
-        </div>
-      </div>
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Titel</mat-label>
+      <input matInput id="title" formControlName="title" required />
+      @if (postForm.get('title')?.touched &&
+      postForm.get('title')?.hasError('required')) {
+      <mat-error> Titel is verplicht </mat-error>
       }
+    </mat-form-field>
+
+    <img [src]="post.picture" alt="Post Image" class="h-56 object-cover" />
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Picture URL</mat-label>
+      <input matInput id="picture" formControlName="picture" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Content</mat-label>
+      <textarea
+        matInput
+        id="content"
+        formControlName="content"
+        class="w-full"
+        rows="10"
+        required
+      ></textarea>
+      @if (postForm.get('content')?.touched &&
+      postForm.get('content')?.hasError('required')) {
+      <mat-error> Content is verplicht </mat-error>
+      }
+    </mat-form-field>
+
+    <div class="flex gap-10 flex-wrap">
+      <mat-form-field appearance="fill">
+        <mat-label>Author</mat-label>
+        <input matInput id="author" formControlName="author" required />
+        @if (postForm.get('author')?.touched &&
+        postForm.get('author')?.hasError('required')) {
+        <mat-error> Author is verplicht </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category">
+          @for(category of categories; track category ){
+          <mat-option [value]="category">{{ category }}</mat-option>
+          }
+        </mat-select>
+        @if (postForm.get('category')?.touched &&
+        postForm.get('category')?.hasError('required')) {
+        <mat-error> Category is verplicht </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          @for(status of statuses; track status ){
+          <mat-option [value]="status">{{ status }}</mat-option>
+          }
+        </mat-select>
+        @if (postForm.get('status')?.touched &&
+        postForm.get('status')?.hasError('required')) {
+        <mat-error> Status is verplicht </mat-error>
+        }
+      </mat-form-field>
+
+      <p class="text-xl pt-3">
+        <strong class="font-semibold">Date:</strong>
+        {{ post.createdDate | date : "yyyy-MM-dd" }}
+      </p>
+
       <button
         type="submit"
         [disabled]="!postForm.valid"
-        class="bg-green-500 hover:bg-green-700 text-white float-right font-bold mt-4 mb-4 py-2 px-2 rounded"
+        class="bg-green-500 hover:bg-green-700 text-white float-right font-bold mb-5 py-2 px-2 rounded"
       >
         Update Post
       </button>
     </div>
   </form>
+
+  <div class="grid">
+    <button
+      (click)="deletePost()"
+      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-2 rounded w-52"
+    >
+      Delete Post
+    </button>
+  </div>
+</div>
+
+<div class="p-20 bg-slate-200 my-10 lg:mx-64">
+  @if(post.status === 'PENDING'){
+  <app-reviews [postReviews]="post.reviews ?? []" [id]="id"></app-reviews>
   }
 </div>
 
-<div class="mt-10">
+<div class="p-20 bg-slate-200 my-10 lg:mx-64">
   <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Comments</h2>
   <div class="flex flex-col gap-y-3">
     <div class="bg-slate-100 p-5 flex flex-col gap-y-2">

@@ -1,4 +1,3 @@
-import { ReviewService } from './../../../shared/services/review.service';
 import { Component, inject } from '@angular/core';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -6,7 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../../../shared/services/post.service';
 import { Post } from '../../../shared/models/post.model';
 import { BehaviorSubject } from 'rxjs';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   FormBuilder,
   FormGroup,
@@ -14,20 +16,29 @@ import {
   Validators,
 } from '@angular/forms';
 import { RoleService } from '../../../shared/services/role.service';
-import { Review } from '../../../shared/models/review.model';
 import { NoPageComponent } from '../../no-page/no-page.component';
 import { CommentService } from '../../../shared/services/comment.service';
 import { Comment } from '../../../shared/models/comment.model';
+import { ReviewsComponent } from '../reviews/reviews.component';
 @Component({
   selector: 'app-post-detail',
   standalone: true,
-  imports: [AsyncPipe, ReactiveFormsModule, DatePipe, NoPageComponent],
+  imports: [
+    AsyncPipe,
+    ReactiveFormsModule,
+    DatePipe,
+    NoPageComponent,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    ReviewsComponent,
+  ],
   templateUrl: './post-detail.component.html',
   styleUrl: './post-detail.component.css',
 })
 export class PostDetailComponent {
   editingCommentId: number | null = null;
-  isRejected: boolean = false;
   roleService: RoleService = inject(RoleService);
   role = this.roleService.getRole();
 
@@ -36,10 +47,10 @@ export class PostDetailComponent {
 
   fb: FormBuilder = inject(FormBuilder);
   postService: PostService = inject(PostService);
-  reviewService: ReviewService = inject(ReviewService);
   commentService: CommentService = inject(CommentService);
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
+  snackBar: MatSnackBar = inject(MatSnackBar);
 
   id: number = this.route.snapshot.params['id'];
   post$: Observable<Post> = this.postService.getPost(this.id);
@@ -56,13 +67,7 @@ export class PostDetailComponent {
     status: ['', Validators.required],
   });
 
-  reviewForm: FormGroup = this.fb.group({
-    reviewStatus: ['', Validators.required],
-    reviewMessage: [''],
-  });
-
   commentForm: FormGroup = this.fb.group({
-    // user: [this.roleService.getUser(), Validators.required],
     comment: ['', Validators.required],
   });
 
@@ -117,7 +122,14 @@ export class PostDetailComponent {
     const updatedPost: Post = this.postForm.value;
 
     this.postService.updatePost(this.id, updatedPost).subscribe({
-      next: () => this.router.navigate(['/posts']),
+      next: () => {
+        this.snackBar.open('Post succesvol Bijgewerkt!', 'Sluiten', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center',
+        });
+        this.router.navigate(['/posts']);
+      },
       error: (err) => console.error('Error updating post:', err),
     });
   }
@@ -128,29 +140,6 @@ export class PostDetailComponent {
         next: () => this.router.navigate(['/posts']),
         error: (err) => console.error('Error deleting post:', err),
       });
-    }
-  }
-
-  onSubmitReview(): void {
-    if (!this.reviewForm.valid) {
-      console.warn('Review form is not valid');
-      return;
-    }
-
-    const reviewData: Review = this.reviewForm.value;
-    reviewData.postId = this.id;
-
-    this.reviewService.addReview(reviewData).subscribe({
-      next: () => this.router.navigate(['/workbanch']),
-      error: (err) => console.error('Error adding review:', err),
-    });
-  }
-
-  onStatusChange(status: string): void {
-    if (status === 'REJECTED') {
-      this.isRejected = true;
-    } else {
-      this.isRejected = false;
     }
   }
 

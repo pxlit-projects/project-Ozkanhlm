@@ -12,7 +12,6 @@ import { RoleService } from '../../../shared/services/role.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-add-post',
@@ -22,7 +21,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatButtonModule,
   ],
   templateUrl: './add-post.component.html',
   styleUrl: './add-post.component.css',
