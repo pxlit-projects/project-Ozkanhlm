@@ -14,3 +14,7 @@
 2024-12-28T15:44:36.098+0100 DEBUG              [main]                         be.pxl.services.GatewayServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
 2024-12-28T15:44:36.099+0100 INFO               [main]                         be.pxl.services.GatewayServiceApplication - No active profile set, falling back to 1 default profile: "default"
 2024-12-28T15:44:46.068+0100 INFO               [main]                         be.pxl.services.GatewayServiceApplication - Started GatewayServiceApplication in 12.921 seconds (process running for 14.218)
+2024-12-28T19:25:47.741+0100 INFO               [main]                         be.pxl.services.GatewayServiceApplication - Starting GatewayServiceApplication using Java 21.0.1 with PID 46640 (C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices\gateway-service\target\classes started by Ozkan in C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices)
+2024-12-28T19:25:47.749+0100 DEBUG              [main]                         be.pxl.services.GatewayServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2024-12-28T19:25:47.751+0100 INFO               [main]                         be.pxl.services.GatewayServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2024-12-28T19:25:58.201+0100 INFO               [main]                         be.pxl.services.GatewayServiceApplication - Started GatewayServiceApplication in 13.195 seconds (process running for 14.564)

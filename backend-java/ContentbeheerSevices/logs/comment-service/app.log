@@ -7,3 +7,7 @@
 2024-12-28T15:45:06.229+0100 DEBUG              [main]                         be.pxl.services.CommentServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
 2024-12-28T15:45:06.230+0100 INFO               [main]                         be.pxl.services.CommentServiceApplication - No active profile set, falling back to 1 default profile: "default"
 2024-12-28T15:45:22.470+0100 INFO               [main]                         be.pxl.services.CommentServiceApplication - Started CommentServiceApplication in 19.596 seconds (process running for 21.325)
+2024-12-28T19:26:14.345+0100 INFO               [main]                         be.pxl.services.CommentServiceApplication - Starting CommentServiceApplication using Java 21.0.1 with PID 47420 (C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices\comment-service\target\classes started by Ozkan in C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices)
+2024-12-28T19:26:14.348+0100 DEBUG              [main]                         be.pxl.services.CommentServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2024-12-28T19:26:14.349+0100 INFO               [main]                         be.pxl.services.CommentServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2024-12-28T19:26:27.788+0100 INFO               [main]                         be.pxl.services.CommentServiceApplication - Started CommentServiceApplication in 16.735 seconds (process running for 18.367)

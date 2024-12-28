@@ -18,3 +18,7 @@
 2024-12-28T15:43:11.143+0100 DEBUG              [main]                         be.pxl.services.ConfigServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
 2024-12-28T15:43:11.144+0100 INFO               [main]                         be.pxl.services.ConfigServiceApplication - The following 1 profile is active: "native"
 2024-12-28T15:43:15.899+0100 INFO               [main]                         be.pxl.services.ConfigServiceApplication - Started ConfigServiceApplication in 6.807 seconds (process running for 8.161)
+2024-12-28T19:25:20.326+0100 INFO               [main]                         be.pxl.services.ConfigServiceApplication - Starting ConfigServiceApplication using Java 21.0.1 with PID 39280 (C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices\config-service\target\classes started by Ozkan in C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices)
+2024-12-28T19:25:20.330+0100 DEBUG              [main]                         be.pxl.services.ConfigServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2024-12-28T19:25:20.331+0100 INFO               [main]                         be.pxl.services.ConfigServiceApplication - The following 1 profile is active: "native"
+2024-12-28T19:25:25.819+0100 INFO               [main]                         be.pxl.services.ConfigServiceApplication - Started ConfigServiceApplication in 8.018 seconds (process running for 12.185)
