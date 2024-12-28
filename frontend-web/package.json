@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "coverage": "cd ./coverage/frontend-web && start index.html"
   },
   "private": true,
   "dependencies": {

@@ -9,7 +9,10 @@
       <div>
         @for (review of postReviews; track $index) {
         <div class="flex gap-x-3">
-          <p>{{ review.reviewStatus }}</p>
+          <p>
+            <span class="font-semibold">Review Status:</span>
+            {{ review.reviewStatus }}
+          </p>
           @if(review.reviewMessage) {
           <p>: {{ review.reviewMessage }}</p>
           }
@@ -17,7 +20,7 @@
         }
       </div>
 
-      <div class="flex flex-col gap-y-3">
+      <div class="flex flex-col gap-y-3 mt-5">
         <div class="flex gap-x-5">
           <mat-radio-group aria-label="Review" formControlName="reviewStatus">
             <mat-radio-button

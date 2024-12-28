@@ -81,7 +81,9 @@
               }
             ],
             "styles": ["src/styles.css"],
-            "scripts": []
+            "scripts": [],
+            "karmaConfig": "karma.conf.js",
+            "codeCoverage": true
           }
         }
       }
