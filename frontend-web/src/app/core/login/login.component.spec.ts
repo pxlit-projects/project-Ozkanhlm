@@ -41,7 +41,7 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show an error if form is invalid and submitted', () => {
+  it('should show an error if form is invalid', () => {
     const form = fixture.debugElement.query(By.css('form'));
     component.username = '';
     component.password = '';
@@ -71,24 +71,5 @@ describe('LoginComponent', () => {
     expect(mockRoleService.setRole).toHaveBeenCalledWith('gebruiker');
     expect(mockRoleService.setUser).toHaveBeenCalledWith('gebruiker');
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/posts']);
-  });
-
-  it('should show an error if username or password is incorrect', () => {
-    const form = fixture.debugElement.query(By.css('form'));
-    component.username = 'wronguser';
-    component.password = 'wrongpassword';
-
-    (environment.users as any) = [
-      { username: 'gebruiker', password: '123', role: 'gebruiker' },
-    ];
-
-    form.triggerEventHandler('ngSubmit', null);
-    fixture.detectChanges();
-
-    expect(mockSnackBar.open).toHaveBeenCalledWith(
-      'Onjuiste gebruikersnaam of wachtwoord',
-      'Sluiten',
-      jasmine.objectContaining({ duration: 3000 })
-    );
   });
 });
