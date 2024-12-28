@@ -1,0 +1,4 @@
+2024-12-27T16:46:07.263+0100 INFO               [main]                         be.pxl.services.ReviewServiceApplication - Starting ReviewServiceApplication using Java 21.0.1 with PID 40432 (C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices\review-service\target\classes started by Ozkan in C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices)
+2024-12-27T16:46:07.267+0100 DEBUG              [main]                         be.pxl.services.ReviewServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2024-12-27T16:46:07.269+0100 INFO               [main]                         be.pxl.services.ReviewServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2024-12-27T16:46:23.457+0100 INFO               [main]                         be.pxl.services.ReviewServiceApplication - Started ReviewServiceApplication in 19.654 seconds (process running for 23.09)

@@ -1,0 +1,4 @@
+2024-12-27T16:46:21.874+0100 INFO               [main]                         be.pxl.services.CommentServiceApplication - Starting CommentServiceApplication using Java 21.0.1 with PID 27780 (C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices\comment-service\target\classes started by Ozkan in C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices)
+2024-12-27T16:46:21.877+0100 DEBUG              [main]                         be.pxl.services.CommentServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2024-12-27T16:46:21.882+0100 INFO               [main]                         be.pxl.services.CommentServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2024-12-27T16:46:37.865+0100 INFO               [main]                         be.pxl.services.CommentServiceApplication - Started CommentServiceApplication in 19.575 seconds (process running for 21.318)
