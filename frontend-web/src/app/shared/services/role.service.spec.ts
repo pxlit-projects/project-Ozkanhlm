@@ -1,12 +1,18 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { RoleService } from './role.service';
 
 describe('RoleService', () => {
   let service: RoleService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ imports: [HttpClientTestingModule] });
+    TestBed.configureTestingModule({
+      providers: [RoleService, provideHttpClient(), provideHttpClientTesting()],
+    });
     service = TestBed.inject(RoleService);
   });
 

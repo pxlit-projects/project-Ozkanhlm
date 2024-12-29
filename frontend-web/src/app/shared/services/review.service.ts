@@ -11,8 +11,8 @@ export class ReviewService {
   api: string = environment.apiUrl + 'review/api/review';
   http: HttpClient = inject(HttpClient);
 
-  addReview(review: Review): Observable<Review> {
-    return this.http.post<Review>(this.api, review, {
+  addReview(review: Review): Observable<string> {
+    return this.http.post<string>(this.api, review, {
       responseType: 'text' as 'json',
     });
   }
