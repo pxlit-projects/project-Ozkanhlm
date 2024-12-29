@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Post } from '../../../shared/models/post.model';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AddPostComponent', () => {
   let component: AddPostComponent;
@@ -13,7 +14,14 @@ describe('AddPostComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddPostComponent, ReactiveFormsModule, BrowserAnimationsModule],
+      imports: [
+        AddPostComponent,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        RouterTestingModule.withRoutes([
+          { path: 'posts', component: AddPostComponent },
+        ]),
+      ],
       providers: [
         {
           provide: PostService,
