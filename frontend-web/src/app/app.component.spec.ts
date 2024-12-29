@@ -1,29 +1,44 @@
-// import { TestBed } from '@angular/core/testing';
-// import { AppComponent } from './app.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppComponent } from './app.component';
+import { NavbarComponent } from './core/navbar/navbar.component';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
-// describe('AppComponent', () => {
-//   beforeEach(async () => {
-//     await TestBed.configureTestingModule({
-//       imports: [AppComponent],
-//     }).compileComponents();
-//   });
+describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
 
-//   it('should create the app', () => {
-//     const fixture = TestBed.createComponent(AppComponent);
-//     const app = fixture.componentInstance;
-//     expect(app).toBeTruthy();
-//   });
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [AppComponent, NavbarComponent, CommonModule],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: { paramMap: {} },
+            params: of({}),
+          },
+        },
+      ],
+    }).compileComponents();
 
-//   it(`should have the 'frontend-web' title`, () => {
-//     const fixture = TestBed.createComponent(AppComponent);
-//     const app = fixture.componentInstance;
-//     expect(app.title).toEqual('frontend-web');
-//   });
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-//   it('should render title', () => {
-//     const fixture = TestBed.createComponent(AppComponent);
-//     fixture.detectChanges();
-//     const compiled = fixture.nativeElement as HTMLElement;
-//     expect(compiled.querySelector('h1')?.textContent).toContain('Hello, frontend-web');
-//   });
-// });
+  it('should create the app component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should have a title "Content Management"', () => {
+    expect(component.title).toBe('Content Management');
+  });
+
+  it('should render the navbar component', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const navbar = compiled.querySelector('app-navbar');
+    expect(navbar).toBeTruthy();
+  });
+});
