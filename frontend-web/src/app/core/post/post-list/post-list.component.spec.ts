@@ -86,7 +86,7 @@ describe('PostListComponent', () => {
     expect(postServiceSpy.getPosts).toHaveBeenCalled();
     expect(component.allPosts.length).toBe(3);
     expect(component.posts.length).toBe(3);
-    console.log(component.posts);
+
     expect(component.posts[0].id).toBe(3);
     expect(component.posts[1].id).toBe(2);
     expect(component.posts[2].id).toBe(1);
