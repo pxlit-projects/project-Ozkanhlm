@@ -31,26 +31,25 @@ describe('ReviewService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-  describe('addReview', () => {
-    it('should send a POST request to the correct API endpoint', () => {
-      const mockReview: Review = {
-        id: 1,
-        reviewStatus: 'REJECTED',
-        reviewMessage: 'Niet goed',
-        postId: 152,
-      };
-      const mockResponse = 'Review added successfully';
 
-      service.addReview(mockReview).subscribe((response) => {
-        expect(response).toBe(mockResponse);
-      });
+  it('should add review', () => {
+    const mockReview: Review = {
+      id: 1,
+      reviewStatus: 'REJECTED',
+      reviewMessage: 'Niet goed',
+      postId: 152,
+    };
+    const mockResponse = 'Review added successfully';
 
-      const req = httpTestingController.expectOne(service.api);
-      expect(req.request.method).toBe('POST');
-      expect(req.request.body).toEqual(mockReview);
-
-      // Return the mock review data
-      req.flush(mockResponse);
+    service.addReview(mockReview).subscribe((response) => {
+      expect(response).toBe(mockResponse);
     });
+
+    const req = httpTestingController.expectOne(service.api);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(mockReview);
+
+    // Return the mock review data
+    req.flush(mockResponse);
   });
 });

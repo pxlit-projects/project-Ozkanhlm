@@ -1,9 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavbarComponent } from './navbar.component';
-import { Router, RouterModule } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { RoleService } from '../../shared/services/role.service';
-
+import { RouterTestingModule } from '@angular/router/testing';
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
@@ -21,7 +20,12 @@ describe('NavbarComponent', () => {
     );
 
     await TestBed.configureTestingModule({
-      imports: [NavbarComponent, RouterModule.forRoot([])],
+      imports: [
+        NavbarComponent,
+        RouterTestingModule.withRoutes([
+          { path: 'login', component: NavbarComponent },
+        ]),
+      ],
       providers: [{ provide: RoleService, useValue: mockRoleService }],
     }).compileComponents();
 
