@@ -1,0 +1,9 @@
+2025-01-06T11:23:09.398+0100 INFO               [main]                         be.pxl.services.CommentServiceApplication - Starting CommentServiceApplication using Java 21.0.1 with PID 46948 (C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices\comment-service\target\classes started by Ozkan in C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices)
+2025-01-06T11:23:09.413+0100 DEBUG              [main]                         be.pxl.services.CommentServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-01-06T11:23:09.414+0100 INFO               [main]                         be.pxl.services.CommentServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-01-06T11:23:21.887+0100 INFO               [main]                         be.pxl.services.CommentServiceApplication - Started CommentServiceApplication in 15.619 seconds (process running for 17.028)
+2025-01-06T11:24:34.652+0100 INFO               [http-nio-8084-exec-8]         be.pxl.services.services.CommentService - Added Comment: Comment(id=1202, user=gebruiker, comment=qsdqsd, postId=504)
+2025-01-06T11:43:12.856+0100 INFO               [http-nio-8084-exec-1]         be.pxl.services.services.CommentService - Added Comment: Comment(id=1203, user=redacteur, comment=qsdqs, postId=553)
+2025-01-06T11:43:16.349+0100 INFO               [http-nio-8084-exec-2]         be.pxl.services.services.CommentService - Updated comment: Comment(id=1203, user=redacteur, comment=qsdqs  qqs, postId=553)
+2025-01-06T11:43:43.640+0100 INFO               [http-nio-8084-exec-9]         be.pxl.services.services.CommentService - Added Comment: Comment(id=1204, user=gebruiker, comment=sqsdqsd, postId=553)
+2025-01-06T11:43:46.303+0100 INFO               [http-nio-8084-exec-10]        be.pxl.services.services.CommentService - Deleted comment: Comment(id=1204, user=gebruiker, comment=sqsdqsd, postId=553)

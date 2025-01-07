@@ -1,0 +1,10 @@
+2025-01-06T11:22:01.321+0100 INFO               [main]                         be.pxl.services.NotificationServiceApplication - Starting NotificationServiceApplication using Java 21.0.1 with PID 14316 (C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices\notification-service\target\classes started by Ozkan in C:\School\FullStackJavaProject\project-Ozkanhlm\backend-java\ContentbeheerSevices)
+2025-01-06T11:22:01.330+0100 DEBUG              [main]                         be.pxl.services.NotificationServiceApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-01-06T11:22:01.331+0100 INFO               [main]                         be.pxl.services.NotificationServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-01-06T11:22:07.895+0100 INFO               [main]                         be.pxl.services.NotificationServiceApplication - Started NotificationServiceApplication in 9.102 seconds (process running for 10.239)
+2025-01-06T11:24:37.699+0100 INFO               [http-nio-8085-exec-1]         be.pxl.services.service.NotificationService - E-mail succesvol verzonden naar: ozkanhalim3600@gmail.com
+2025-01-06T11:25:34.069+0100 INFO               [http-nio-8085-exec-2]         be.pxl.services.service.NotificationService - E-mail succesvol verzonden naar: ozkanhalim3600@gmail.com
+2025-01-06T11:42:31.943+0100 INFO               [http-nio-8085-exec-4]         be.pxl.services.service.NotificationService - E-mail succesvol verzonden naar: ozkanhalim3600@gmail.com
+2025-01-06T11:43:13.969+0100 INFO               [http-nio-8085-exec-5]         be.pxl.services.service.NotificationService - E-mail succesvol verzonden naar: ozkanhalim3600@gmail.com
+2025-01-06T11:43:28.226+0100 INFO               [http-nio-8085-exec-6]         be.pxl.services.service.NotificationService - E-mail succesvol verzonden naar: ozkanhalim3600@gmail.com
+2025-01-06T11:43:44.504+0100 INFO               [http-nio-8085-exec-7]         be.pxl.services.service.NotificationService - E-mail succesvol verzonden naar: ozkanhalim3600@gmail.com
