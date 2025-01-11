@@ -16,4 +16,32 @@ Each folder contains its own specific `.gitignore` file.
 
 ## How to setup and run this application
 
-:heavy*check_mark:*(COMMENT) Add setup instructions and provide some direction to run the whole application: frontend to backend.\_
+If you want to run the local frontend, you need to uncomment the frontend section in the `docker-compose.yml` file first. Otherwise, you can leave it as is.
+
+Then, run `docker compose up -d` to start the Docker containers (frontend and databases)."
+
+### Forntend
+
+#### - Local Setup
+
+`npm install`
+
+`ng serve`
+
+Visit `http://localhost:4200`
+
+#### - Using docker
+
+If you run `docker compose up -d`, the frontend can be accessed at `http://localhost:4200`.
+
+### Backend
+
+#### - Local Setup
+
+To run the backend locally, start the databases first by running the `docker-compose.yml` file. After that, manually start the services in the following order:
+
+- `config-service`
+- `discovery-service`
+- `gateway-service`
+
+Finally, start any additional services as needed.
