@@ -18,7 +18,7 @@ Each folder contains its own specific `.gitignore` file.
 
 If you want to run the local frontend, you need to uncomment the frontend section in the `docker-compose.yml` file first. Otherwise, you can leave it as is.
 
-Then, run `docker compose up -d` to start the Docker containers (frontend and databases)."
+Then, run `docker compose up -d` to start the Docker containers (frontend and databases).
 
 ### Forntend
 
